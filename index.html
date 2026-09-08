@@ -1,14 +1,493 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Vega Guo | OIM 3690</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vega Guo | Personal Homepage</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            color: #111;
+            background-color: #fff;
+        }
+
+        /* Navigation */
+
+        nav {
+            border-bottom: 1px solid #ddd;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        nav a {
+            color: #111;
+            text-decoration: none;
+            margin-left: 28px;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main page container */
+
+        .container {
+            max-width: 1150px;
+            margin: auto;
+            padding: 20px 40px;
+        }
+
+        /* Hero */
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+            padding: 40px 0 35px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .hero-text {
+            width: 50%;
+        }
+
+        .welcome {
+            font-family: Arial, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 13px;
+            color: #65717a;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: 58px;
+            margin: 0 0 20px;
+            font-weight: normal;
+        }
+
+        .intro {
+            font-size: 21px;
+            line-height: 1.5;
+            max-width: 520px;
+        }
+
+        .handwriting {
+            margin-top: 35px;
+            margin-left: 20px;
+            font-family: cursive;
+            font-style: italic;
+            font-size: 30px;
+            color: #d98b72;
+            transform: rotate(-5deg);
+        }
+
+        .hero-image {
+            width: 48%;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 590px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* About / Interests */
+
+        .info-section {
+            display: flex;
+            gap: 70px;
+            padding: 40px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .about,
+        .interests {
+            flex: 1;
+        }
+
+        h2 {
+            font-size: 34px;
+            font-weight: normal;
+            margin-top: 0;
+        }
+
+        .about p {
+            font-size: 18px;
+            line-height: 1.55;
+        }
+
+        /* Quote box */
+
+        .quote {
+            background-color: #f8eeee;
+            padding: 24px 30px;
+            margin-top: 30px;
+            font-style: italic;
+            font-size: 19px;
+        }
+
+        .quote small {
+            display: block;
+            margin-top: 15px;
+            font-family: Arial, sans-serif;
+            font-style: normal;
+            letter-spacing: 2px;
+            font-size: 11px;
+            color: #59636c;
+        }
+
+        /* Interests */
+
+        .interest {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .number {
+            width: 50px;
+            height: 50px;
+            background-color: #f6eaea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-right: 25px;
+            flex-shrink: 0;
+        }
+
+        .interest h3 {
+            margin: 3px 0 6px;
+            font-size: 20px;
+            font-weight: normal;
+        }
+
+        .interest p {
+            margin: 0;
+            color: #6b7078;
+            line-height: 1.4;
+        }
+
+        /* GitHub */
+
+        .online {
+            padding: 35px 0 45px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .online-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .github {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .github-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background-color: #111;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .github a {
+            color: #c96857;
+            font-size: 19px;
+        }
+
+        .github p {
+            margin: 5px 0 0;
+            color: #666;
+        }
+
+        .thanks {
+            font-family: cursive;
+            font-size: 24px;
+            transform: rotate(-6deg);
+        }
+
+        /* Footer */
+
+        footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 0 30px;
+            color: #60666c;
+            font-size: 14px;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 750px) {
+
+            .hero,
+            .info-section {
+                flex-direction: column;
+            }
+
+            .hero-text,
+            .hero-image {
+                width: 100%;
+            }
+
+            .hero-image img {
+                height: auto;
+            }
+
+            h1 {
+                font-size: 42px;
+            }
+
+            nav .links {
+                display: none;
+            }
+
+            .online-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 30px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+    </style>
 </head>
+
+
 <body>
-	<main>
-		<h1>Vega Guo | OIM 3690</h1>
-		<p>This repository contains my classwork for OIM 3690.</p>
-	</main>
+
+    <!-- Navigation -->
+
+    <nav>
+        <h2>Vega Guo</h2>
+
+        <div class="links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#interests">Interests</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+
+    <div class="container">
+
+        <!-- Hero -->
+
+        <section class="hero" id="home">
+
+            <div class="hero-text">
+
+                <p class="welcome">
+                    Welcome to my space
+                </p>
+
+                <h1>Hi, I'm Vega Guo!</h1>
+
+                <p class="intro">
+                    I'm a student at Babson College studying business,
+                    entrepreneurship, and technology. I'm especially
+                    interested in how technology and AI can create
+                    meaningful value in education.
+                </p>
+
+                <div class="handwriting">
+                    Good ideas,<br>
+                    brighter people ♡
+                </div>
+
+            </div>
+
+
+            <div class="hero-image">
+
+                <img
+                    src="vega.jpg"
+                    alt="Vega traveling in Paris"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- About + Interests -->
+
+        <section class="info-section">
+
+            <div class="about" id="about">
+
+                <h2>About Me</h2>
+
+                <p>
+                    I enjoy building new ideas, working with children,
+                    traveling, and learning about how people interact
+                    with technology. I'm currently exploring the
+                    intersection of education, entrepreneurship, and AI,
+                    and always excited to meet new people and learn
+                    new perspectives.
+                </p>
+
+                <div class="quote">
+                    “A more curious, compassionate, and creative world.”
+
+                    <small>
+                        — WHAT I'M WORKING TOWARDS
+                    </small>
+                </div>
+
+            </div>
+
+
+            <div class="interests" id="interests">
+
+                <h2>Things I'm Interested In</h2>
+
+
+                <div class="interest">
+
+                    <div class="number">1</div>
+
+                    <div>
+                        <h3>Early Childhood Education</h3>
+
+                        <p>
+                            Supporting children to reach their
+                            full potential.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="interest">
+
+                    <div class="number">2</div>
+
+                    <div>
+                        <h3>Artificial Intelligence & Technology</h3>
+
+                        <p>
+                            Exploring how AI can create real,
+                            positive impact.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="interest">
+
+                    <div class="number">3</div>
+
+                    <div>
+                        <h3>Entrepreneurship</h3>
+
+                        <p>
+                            Turning ideas into solutions that
+                            make a difference.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- GitHub -->
+
+        <section class="online" id="contact">
+
+            <h2>Find Me Online</h2>
+
+            <div class="online-content">
+
+                <div class="github">
+
+                    <div class="github-icon">
+                        GH
+                    </div>
+
+                    <div>
+
+                        <a
+                            href="https://github.com/vegalh/vegalh.github.io.git"
+                            target="_blank"
+                        >
+                            Visit my GitHub
+                        </a>
+
+                        <p>
+                            Check out my projects and contributions!
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="thanks">
+                    Thanks for stopping by! ♡
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Footer -->
+
+        <footer>
+
+            <div>
+                © 2026 Vega Guo. All rights reserved.
+            </div>
+
+            <div>
+                Learn · Build · Explore · Create
+            </div>
+
+        </footer>
+
+    </div>
+
 </body>
+
 </html>
