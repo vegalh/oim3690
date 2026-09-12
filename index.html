@@ -1,1 +1,518 @@
-hi
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linghan (Vega) Guo — CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#e8e1f0;
+    --muted:#a99cc0;
+    --paper:#151022;
+    --panel:#1e1830;
+    --panel-raised:#241d38;
+    --line:#3a2f52;
+    --plum:#6b4e8e;
+    --wine:#7c3b4f;
+    --gold:#c9a768;
+    --gold-soft:#a98f56;
+    --shadow:0 20px 50px #00000055;
+    --font-display:'Cormorant Garamond',serif;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    color:var(--ink);
+    font-family:'EB Garamond',serif;
+    font-size:17px;
+    line-height:1.6;
+    background:
+      radial-gradient(circle at 15% 0%,#2a1f42 0,transparent 45%),
+      radial-gradient(circle at 90% 10%,#33203a 0,transparent 40%),
+      radial-gradient(circle at 50% 100%,#1c1730 0,transparent 55%),
+      var(--paper);
+    background-attachment:fixed;
+  }
+
+  .wrap{max-width:900px;margin:0 auto;padding:60px 24px 90px;position:relative;z-index:1}
+
+  /* ---------- mode switch ---------- */
+  .mode-switch{
+    position:sticky;top:18px;z-index:20;
+    display:inline-flex;gap:2px;
+    background:var(--panel-raised);
+    border:1px solid var(--line);
+    border-radius:30px;
+    padding:4px;
+    box-shadow:var(--shadow);
+    margin-bottom:36px;
+  }
+  .mode-btn{
+    border:none;background:transparent;color:var(--muted);
+    font:12px 'DM Mono';letter-spacing:.08em;text-transform:uppercase;
+    padding:9px 20px;border-radius:24px;cursor:pointer;
+    transition:background .2s ease,color .2s ease;
+  }
+  .mode-btn[aria-pressed="true"]{background:linear-gradient(160deg,var(--wine),var(--plum));color:#fff}
+  .mode-btn:not([aria-pressed="true"]):hover{color:var(--ink)}
+
+  /* show/hide by mode */
+  body[data-mode="professional"] .personal-only{display:none}
+  body[data-mode="personal"] .professional-only{display:none}
+
+  /* ---------- hero ---------- */
+  header.hero{
+    position:relative;
+    display:grid;
+    grid-template-columns:190px 1fr;
+    gap:36px;
+    align-items:center;
+    background:linear-gradient(160deg,var(--panel-raised),var(--panel));
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:40px;
+    box-shadow:var(--shadow);
+  }
+  header.hero::before{
+    content:"";
+    position:absolute;inset:8px;
+    border:1px solid var(--gold-soft);
+    border-radius:3px;
+    opacity:.35;
+    pointer-events:none;
+  }
+  .photo{
+    width:190px;height:190px;border-radius:50%;
+    background:linear-gradient(160deg,var(--plum),var(--wine));
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;position:relative;
+    border:3px solid var(--gold);
+    box-shadow:0 0 0 6px #00000040,0 14px 30px #0007;
+  }
+  .photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .photo .placeholder{color:#d9cdea;font:11px 'DM Mono';text-align:center;letter-spacing:.05em;padding:16px}
+
+  .intro .eyebrow{font:11px 'DM Mono';letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:0 0 8px}
+  .intro h1{
+    font-family:var(--font-display);
+    font-style:italic;
+    font-weight:600;
+    font-size:clamp(30px,4vw,44px);
+    color:#fff;
+    margin:0 0 6px;
+  }
+  .intro .role{
+    color:var(--muted);
+    font-size:15px;
+    margin:0 0 16px;
+    font-family:'DM Mono';
+    letter-spacing:.01em;
+  }
+  .intro p.bio{margin:0 0 18px;color:var(--muted);font-size:16px;max-width:52ch}
+  .contact{display:flex;flex-wrap:wrap;gap:10px 22px;font:12px 'DM Mono';color:var(--muted)}
+  .contact a{color:var(--gold);text-decoration:none}
+  .contact a:hover{text-decoration:underline}
+
+  /* ---------- section headers ---------- */
+  section.block{margin-top:50px;position:relative}
+  .block h2{
+    font-family:var(--font-display);
+    font-style:italic;
+    font-weight:600;
+    font-size:24px;color:#fff;
+    display:flex;align-items:baseline;gap:14px;margin:0 0 22px;
+  }
+  .block h2 .num{font:12px 'DM Mono';color:var(--gold);font-style:normal;letter-spacing:.12em}
+  .block h2::after{content:"";flex:1;height:1px;
+    background:linear-gradient(90deg,var(--gold-soft),transparent);
+    opacity:.5;
+  }
+
+  /* ---------- entry cards ---------- */
+  .entry{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-left:2px solid var(--gold-soft);
+    border-radius:4px;
+    padding:20px 26px;
+    margin-bottom:14px;
+    box-shadow:var(--shadow);
+  }
+  .entry .row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 16px;align-items:baseline}
+  .entry .role-title{font-weight:600;font-size:17px;color:#fff;font-family:var(--font-display)}
+  .entry .org{color:var(--gold);font-size:13.5px;font:13.5px 'DM Mono'}
+  .entry .dates{font:11px 'DM Mono';color:var(--muted);white-space:nowrap}
+  .entry ul{margin:12px 0 0;padding-left:20px;color:var(--muted);font-size:15px}
+  .entry ul li{margin-bottom:6px}
+  .entry ul li::marker{color:var(--gold)}
+
+  /* ---------- bookshelf ---------- */
+  .shelf-wrap{
+    background:linear-gradient(180deg,var(--panel-raised),var(--panel));
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:28px 26px 0;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+  .shelf-note{color:var(--muted);font-size:14.5px;margin:0 0 20px}
+  .shelf-note code{color:var(--gold);font-family:'DM Mono';font-size:12.5px}
+  .shelf{
+    display:flex;align-items:flex-end;gap:6px;
+    padding-bottom:0;
+    overflow-x:auto;
+  }
+  .spine{
+    flex:0 0 auto;
+    width:44px;height:190px;
+    border-radius:3px 3px 0 0;
+    display:flex;align-items:flex-start;justify-content:center;
+    padding-top:16px;
+    border:1px solid #00000030;
+    box-shadow:inset 0 0 0 1px #ffffff10;
+  }
+  .spine span{
+    writing-mode:vertical-rl;
+    transform:rotate(180deg);
+    font:13px var(--font-display);
+    font-style:italic;
+    color:#f4efe2;
+    letter-spacing:.02em;
+    white-space:nowrap;
+  }
+  .spine.empty{
+    border:1px dashed var(--line);
+    background:transparent;
+    align-items:center;justify-content:center;padding-top:0;
+  }
+  .spine.empty span{writing-mode:horizontal-tb;transform:none;font:11px 'DM Mono';color:var(--muted);text-align:center;white-space:normal;padding:0 6px}
+  .shelf-board{height:14px;background:linear-gradient(180deg,#3a2b1c,#241a10);border-radius:0 0 4px 4px;margin-top:0;box-shadow:0 6px 14px #0007}
+
+  /* ---------- personal ---------- */
+  .personal-card{
+    background:linear-gradient(160deg,var(--panel-raised),var(--panel));
+    border:1px solid var(--gold-soft);
+    border-radius:6px;
+    padding:30px 34px;
+    box-shadow:var(--shadow);
+    position:relative;
+  }
+  .personal-card::before{content:"❧";position:absolute;top:16px;left:22px;color:var(--gold);font-size:20px;opacity:.7}
+  .personal-card p{
+    font-family:var(--font-display);
+    font-style:italic;
+    font-size:19px;
+    color:#eee5d8;
+    max-width:60ch;
+    margin:0 auto 14px;
+    text-align:center;
+    line-height:1.7;
+  }
+  .personal-tags{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:18px}
+  .personal-tags span{
+    font:11px 'DM Mono';color:var(--gold);border:1px solid var(--gold-soft);
+    padding:5px 12px;border-radius:20px;letter-spacing:.05em;
+  }
+
+  /* ---------- skills ---------- */
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+  .skill-card{
+    background:var(--panel);
+    border:1px solid var(--line);border-radius:4px;
+    padding:20px 22px;box-shadow:var(--shadow);
+  }
+  .skill-card h3{margin:0 0 10px;font:12px 'DM Mono';letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+  .skill-card p{margin:0;color:var(--muted);font-size:15px}
+
+  /* ---------- gallery ---------- */
+  .gallery{
+    margin-top:50px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:28px;box-shadow:var(--shadow);
+    display:flex;align-items:center;gap:22px;flex-wrap:wrap;
+  }
+  .gallery .frame{
+    width:150px;height:110px;border-radius:3px;border:1px dashed var(--line);
+    display:flex;align-items:center;justify-content:center;color:var(--muted);
+    font:11px 'DM Mono';text-align:center;background:#00000020;flex-shrink:0;overflow:hidden;
+  }
+  .gallery .frame img{width:100%;height:100%;object-fit:cover;border-radius:2px}
+  .gallery p{margin:0;color:var(--muted);font-size:15px}
+
+  footer{margin-top:60px;text-align:center;color:var(--muted);font:11px 'DM Mono';letter-spacing:.08em}
+  footer .rule{width:60px;height:1px;background:var(--gold-soft);margin:0 auto 14px;opacity:.6}
+
+  /* ---------- travel ---------- */
+  .travel-list{display:grid;gap:12px}
+  .travel-item{
+    background:var(--panel);border:1px solid var(--line);border-radius:4px;
+    padding:18px 24px;box-shadow:var(--shadow);
+    display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:baseline;
+  }
+  .travel-item .place{font-family:var(--font-display);font-style:italic;font-size:18px;color:#fff}
+  .travel-item .note{color:var(--muted);font-size:14.5px;flex:1 1 260px}
+
+  /* ---------- hobbies ---------- */
+  .hobby-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+  .hobby-card{
+    background:linear-gradient(160deg,var(--panel-raised),var(--panel));
+    border:1px solid var(--line);border-radius:4px;
+    padding:22px;box-shadow:var(--shadow);
+  }
+  .hobby-card h3{margin:0 0 8px;font-family:var(--font-display);font-style:italic;font-size:18px;color:var(--gold)}
+  .hobby-card p{margin:0;color:var(--muted);font-size:14.5px}
+
+  .epigraph{color:var(--muted);font-family:var(--font-display);font-style:italic;font-size:18px;text-align:center;max-width:56ch;margin:0 auto 50px;line-height:1.7}
+  .epigraph::before,.epigraph::after{content:"\2015";color:var(--gold-soft);margin:0 10px}
+
+  @media (max-width:640px){
+    header.hero{grid-template-columns:1fr;text-align:center}
+    .photo{margin:0 auto}
+    .contact,.intro .role{justify-content:center}
+    .entry .row{flex-direction:column}
+    .mode-switch{position:static;display:flex;justify-content:center;margin:0 0 30px}
+  }
+</style>
+</head>
+<body data-mode="professional">
+
+<div class="wrap">
+
+  <div class="mode-switch" role="group" aria-label="View mode">
+    <button type="button" class="mode-btn" data-mode-btn="professional" aria-pressed="true">Professional</button>
+    <button type="button" class="mode-btn" data-mode-btn="personal" aria-pressed="false">Personal</button>
+  </div>
+
+  <header class="hero">
+    <div class="photo">
+      <!-- Replace with: <img src="your-photo.jpg" alt="Vega with students"> -->
+      <span class="placeholder">your photo here<br>(classroom pic!)</span>
+    </div>
+    <div class="intro">
+      <p class="eyebrow professional-only">Curriculum Vitae</p>
+      <p class="eyebrow personal-only">Off the Record</p>
+      <h1>Linghan (Vega) Guo</h1>
+      <p class="role professional-only">Business Student, Babson College · Montessori Educator-in-Training</p>
+      <p class="role personal-only">Reader · Traveler · Collector of Quiet Mysteries</p>
+      <p class="bio professional-only">I study how people build things — companies, classrooms, systems of trust — and keep returning to the same question: what does a child need from the room they learn in? My work moves between boardrooms and Montessori shelves, business models and bookshelves.</p>
+      <p class="bio personal-only">Off the clock, I'm chasing the same mystery from a different angle — how a story, a room, or a place quietly shapes the person inside it. This is the shelf, the suitcase, and the side quests.</p>
+      <div class="contact">
+        <span>Wellesley Hills, MA</span>
+        <a href="mailto:lguo1@babson.edu">lguo1@babson.edu</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="block professional-only">
+    <h2><span class="num">01</span>Education</h2>
+    <div class="entry">
+      <div class="row">
+        <span class="role-title">B.S. in Business Administration and Management</span>
+        <span class="dates">Aug 2023 – May 2027</span>
+      </div>
+      <div class="org">Babson College · Wellesley Hills, MA</div>
+      <ul><li>Estimated GPA: 3.7/4.0</li></ul>
+    </div>
+    <div class="entry">
+      <div class="row">
+        <span class="role-title">American Montessori Society (AMS) Early Childhood Teacher Training</span>
+        <span class="dates">Jun 2025 – Jun 2027</span>
+      </div>
+      <div class="org">Northeast Montessori Institute</div>
+    </div>
+  </section>
+
+  <section class="block professional-only">
+    <h2><span class="num">02</span>Classroom Experience</h2>
+    <div class="entry">
+      <div class="row">
+        <span class="role-title">Practicum Teacher</span>
+        <span class="dates">Aug 2026 – Present</span>
+      </div>
+      <div class="org">Peninsula Montessori Academy</div>
+      <ul>
+        <li>Teach and document individualized Montessori lessons for children ages 2–3 across Practical Life, Sensorial, Language, Math, and Cultural areas, adapting presentations to children's engagement and readiness.</li>
+        <li>Observe children's independent exploration and learning behaviors to inform lesson selection, pacing, and follow-up activities.</li>
+      </ul>
+    </div>
+    <div class="entry">
+      <div class="row">
+        <span class="role-title">Montessori Practicum / Classroom Assistant</span>
+        <span class="dates">Aug 2025 – Mar 2026</span>
+      </div>
+      <div class="org">Sunrise Montessori</div>
+      <ul>
+        <li>Supported a Montessori 3–6 classroom through daily observation, individualized lessons, material preparation, and documentation of children's developmental and learning progress.</li>
+        <li>Designed Montessori lesson plans across Practical Life, Sensorial, Math, Language, and Culture as part of AMS Early Childhood training.</li>
+      </ul>
+    </div>
+    <div class="entry">
+      <div class="row">
+        <span class="role-title">Founder &amp; Lead Researcher</span>
+        <span class="dates">May 2025 – Present</span>
+      </div>
+      <div class="org">Independent Early Childhood Education Field Study</div>
+      <ul>
+        <li>Conducted field visits to 10+ preschools and kindergartens, observing differences in classroom environments, teaching practices, and approaches to child development.</li>
+        <li>Interviewed school founders, directors, and educators on educational philosophy, child development, and challenges facing early childhood education.</li>
+        <li>Extended the inquiry internationally to Reggio Emilia and Montessori's birthplace in Italy, examining learning environments, child autonomy, and the role of the educator.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block professional-only">
+    <h2><span class="num">03</span>Other Experience</h2>
+    <div class="entry">
+      <div class="row">
+        <span class="role-title">Co-Founder</span>
+        <span class="dates">May 2023 – Present</span>
+      </div>
+      <div class="org">Truvit</div>
+      <ul>
+        <li>Founded and led an AI-powered reading platform supporting personalized reading, contextual vocabulary learning, and interactive engagement with books.</li>
+        <li>Secured a contract with Penguin Random House to incorporate public domain books into the Truvit system for language corpus training.</li>
+        <li>Built and led a 13-member cross-border team and grew Truvit to 1,000+ users.</li>
+      </ul>
+    </div>
+    <div class="entry">
+      <div class="row">
+        <span class="role-title">Intern</span>
+        <span class="dates">Nov 2019 – Nov 2023</span>
+      </div>
+      <div class="org">Penguin Random House (PRH)</div>
+      <ul>
+        <li>Collaborated with PRH China on content strategy and publication of a 12-title children's book series, coordinating with authors, editors, and international teams.</li>
+        <li>Supported partnerships with children's author Julia Cook and Chinese content platforms, reviewing 50+ children's books for cross-cultural publishing opportunities.</li>
+      </ul>
+    </div>
+    <div class="entry">
+      <div class="row">
+        <span class="role-title">Livestream Host &amp; Mentor</span>
+        <span class="dates">Jun 2020 – Jan 2021</span>
+      </div>
+      <div class="org">ChuMan Chinese Live-Streaming Platform</div>
+      <ul>
+        <li>Hosted 600+ hours of live streams reaching 15K young Chinese student viewers per stream, sharing American culture, mentoring study habits, and leading interactive activities.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block professional-only">
+    <h2><span class="num">04</span>Skills &amp; Activities</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Certifications</h3>
+        <p>Harvard Certificate in Early Education Leadership · MA Department of Early Education and Care · Child/Infant CPR &amp; AED · Operational Management</p>
+      </div>
+      <div class="skill-card">
+        <h3>Languages</h3>
+        <p>Fluent in Mandarin and English · Beginner in Spanish and German</p>
+      </div>
+      <div class="skill-card">
+        <h3>Technical Skills</h3>
+        <p>Beginner in C++, Java, JavaScript, Python, and HTML</p>
+      </div>
+      <div class="skill-card">
+        <h3>Activities</h3>
+        <p>Vice President, Babson E-Tower (entrepreneurship living-learning community)</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block personal-only">
+    <h2><span class="num">01</span>On the Shelf</h2>
+    <div class="shelf-wrap">
+      <p class="shelf-note">A few books I keep returning to. Add your own by editing the <code>.shelf</code> list in index.html.</p>
+      <div class="shelf">
+        <div class="spine" style="background:#5c3a52"><span>Title Here</span></div>
+        <div class="spine" style="background:#3a4a52"><span>Title Here</span></div>
+        <div class="spine" style="background:#4a3a2f"><span>Title Here</span></div>
+        <div class="spine empty"><span>+ add your favorite books here</span></div>
+      </div>
+      <div class="shelf-board"></div>
+    </div>
+  </section>
+
+  <section class="block personal-only">
+    <h2><span class="num">02</span>Travel &amp; Field Notes</h2>
+    <div class="travel-list">
+      <div class="travel-item">
+        <span class="place">Reggio Emilia &amp; Rome, Italy</span>
+        <span class="note">Visited Montessori's birthplace and Reggio Emilia schools to study child autonomy and learning environments.</span>
+      </div>
+      <div class="travel-item">
+        <span class="place">Cities across Europe</span>
+        <span class="note">Observed children's public play spaces and how physical design shapes learning.</span>
+      </div>
+      <div class="travel-item">
+        <span class="place">+ add a destination</span>
+        <span class="note">Edit the .travel-list in index.html to add more trips.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="block personal-only">
+    <h2><span class="num">03</span>Hobbies &amp; Interests</h2>
+    <div class="hobby-grid">
+      <div class="hobby-card">
+        <h3>Mystery Novels</h3>
+        <p>Partial to a slow-burn plot and an unreliable narrator.</p>
+      </div>
+      <div class="hobby-card">
+        <h3>Languages</h3>
+        <p>Fluent in Mandarin and English, learning Spanish and German.</p>
+      </div>
+      <div class="hobby-card">
+        <h3>Field Research</h3>
+        <p>Visiting schools, interviewing educators, and writing it all down.</p>
+      </div>
+      <div class="hobby-card">
+        <h3>+ add a hobby</h3>
+        <p>Edit the .hobby-grid in index.html to add more cards.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery personal-only">
+    <div class="frame">
+      <!-- Swap this div for: <img src="classroom.jpg" alt="Vega working with kids"> -->
+      add a classroom photo here
+    </div>
+    <p>A photo of me working with the kids in the classroom will go right here — just drop the image file into this folder and swap the placeholder frame above for an &lt;img&gt; tag.</p>
+  </section>
+
+  <footer>
+    <div class="rule"></div>
+    updated 2026
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var body=document.body;
+  var buttons=document.querySelectorAll('[data-mode-btn]');
+  var stored=localStorage.getItem('cvMode');
+  if(stored==='professional'||stored==='personal'){
+    body.setAttribute('data-mode',stored);
+  }
+  function setMode(mode){
+    body.setAttribute('data-mode',mode);
+    localStorage.setItem('cvMode',mode);
+    buttons.forEach(function(btn){
+      btn.setAttribute('aria-pressed',btn.getAttribute('data-mode-btn')===mode);
+    });
+  }
+  buttons.forEach(function(btn){
+    btn.addEventListener('click',function(){setMode(btn.getAttribute('data-mode-btn'))});
+  });
+  setMode(body.getAttribute('data-mode'));
+})();
+</script>
+</body>
+</html>
