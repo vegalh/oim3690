@@ -215,10 +215,112 @@
   @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,6px)}}
 
   /* ============================================================
-     SCREEN 2 — THE SHIFT
+     SCREEN 2 — MEET FACTORY (company intro, official site)
      ============================================================ */
-  #screen-2 .layout{max-width:980px;margin:0 auto;width:100%}
+  #screen-2 .layout{max-width:1000px;margin:0 auto;width:100%}
   #screen-2 h1{
+    font-size:clamp(30px,4.6vw,58px);
+    line-height:1.05;
+    letter-spacing:-.02em;
+    margin:0 0 16px;
+  }
+  #screen-2 .tagline{
+    font-family:var(--font-mono);
+    font-size:13px;
+    letter-spacing:.15em;
+    color:var(--muted);
+    margin:0 0 34px;
+  }
+  .fact-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+    margin-bottom:30px;
+  }
+  .fact-card{
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:18px 20px;
+    background:var(--panel);
+  }
+  .fact-card .num{
+    font-family:var(--font-mono);
+    font-size:clamp(22px,2.4vw,30px);
+    font-weight:700;
+    margin:0 0 6px;
+  }
+  .fact-card .label{
+    font-size:13.5px;
+    color:var(--muted);
+    line-height:1.4;
+    margin:0;
+  }
+  #screen-2 .why{
+    font-size:clamp(15px,1.5vw,17.5px);
+    line-height:1.6;
+    max-width:640px;
+    margin:0 0 18px;
+  }
+  #screen-2 .why b{font-weight:700}
+  #screen-2 .source{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--muted);
+  }
+  #screen-2 .source a{color:var(--ink);text-decoration:underline}
+
+  /* ============================================================
+     SCREEN 3 — MANAGING AGENTS = MANAGING PEOPLE (Business Insider)
+     ============================================================ */
+  #screen-3.quote-screen .layout{max-width:900px;margin:0 auto;width:100%}
+  #screen-3.quote-screen .eyebrow{margin-bottom:22px}
+  #screen-3.quote-screen blockquote{
+    font-size:clamp(22px,3.4vw,38px);
+    line-height:1.3;
+    letter-spacing:-.01em;
+    margin:0 0 20px;
+    font-style:normal;
+  }
+  #screen-3.quote-screen .attribution{
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--muted);
+    margin:0 0 36px;
+  }
+  .stat-row{
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-bottom:26px;
+  }
+  .stat-pill{
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--muted);
+    border:1px solid var(--line);
+    border-radius:30px;
+    padding:8px 16px;
+  }
+  .stat-pill b{color:var(--ink)}
+  #screen-3.quote-screen .support{
+    font-size:clamp(14px,1.3vw,16px);
+    color:var(--muted);
+    line-height:1.6;
+    max-width:56ch;
+    margin:0 0 22px;
+  }
+  #screen-3.quote-screen .source{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--muted);
+  }
+  #screen-3.quote-screen .source a{color:var(--ink);text-decoration:underline}
+
+  /* ============================================================
+     SCREEN 4 — THE SHIFT
+     ============================================================ */
+  #screen-4 .layout{max-width:980px;margin:0 auto;width:100%}
+  #screen-4 h1{
     font-size:clamp(32px,4.6vw,60px);
     letter-spacing:-.02em;
     margin:0 0 40px;
@@ -295,7 +397,7 @@
   }
   .agent-card.shown{opacity:1;transform:translateY(0)}
 
-  #screen-2 .takeaway{
+  #screen-4 .takeaway{
     text-align:center;
     font-size:clamp(20px,2.6vw,30px);
     line-height:1.35;
@@ -304,15 +406,15 @@
   }
 
   /* ============================================================
-     SCREEN 3 — DISCUSSION
+     SCREEN 5 — DISCUSSION
      ============================================================ */
-  #screen-3 .layout{
+  #screen-5 .layout{
     max-width:820px;
     margin:0 auto;
     width:100%;
     text-align:center;
   }
-  #screen-3 h2.question{
+  #screen-5 h2.question{
     font-size:clamp(26px,4.4vw,46px);
     line-height:1.25;
     letter-spacing:-.01em;
@@ -358,7 +460,7 @@
     margin-bottom:8px;
   }
 
-  #screen-3 .prompt-line{
+  #screen-5 .prompt-line{
     font-family:var(--font-mono);
     font-size:13px;
     color:var(--muted);
@@ -372,6 +474,8 @@
     #screen-1 .layout{grid-template-columns:1fr}
     .code-window{justify-self:stretch;max-width:100%}
     .timeline .step.final{transform:scale(1)}
+    .fact-grid{grid-template-columns:1fr}
+    .stat-row{flex-direction:column}
   }
 </style>
 </head>
@@ -405,9 +509,64 @@
   </section>
 
   <!-- ============================================================
-       SCREEN 2 — THE SHIFT
+       SCREEN 2 — MEET FACTORY
+       The company behind the $200M raise, straight from their own
+       site (factory.com) — what they actually sell and why it's
+       different from a typical "AI autocomplete" tool.
        ============================================================ -->
   <section class="screen" id="screen-2">
+    <div class="layout">
+      <p class="eyebrow">MEET THE COMPANY · FACTORY.COM</p>
+      <h1>Make your software<br>improve itself.</h1>
+      <p class="tagline">FACTORY'S OWN TAGLINE, FROM FACTORY.COM</p>
+
+      <div class="fact-grid">
+        <div class="fact-card">
+          <p class="num">Droid</p>
+          <p class="label">Their AI agent — works from the Factory App, CLI, or headless, wherever your team already codes.</p>
+        </div>
+        <div class="fact-card">
+          <p class="num">Full SDLC</p>
+          <p class="label">Not just writing code — Droid also handles code review, QA, incident response, and documentation.</p>
+        </div>
+        <div class="fact-card">
+          <p class="num">Model-independent</p>
+          <p class="label">Routes each task to whichever AI model fits best, cutting cost ~58% without hurting quality.</p>
+        </div>
+      </div>
+
+      <p class="why">Unlike a single "autocomplete" plugin, Factory sells a whole <b>"Software Factory"</b> — a fleet of agents an engineering team can deploy, secure, and manage together, not just one assistant per developer.</p>
+      <p class="source">Source: <a href="https://factory.com" target="_blank" rel="noopener noreferrer">factory.com</a></p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SCREEN 3 — MANAGING AGENTS = MANAGING PEOPLE
+       Grounds the talk in a real outside example: a founder who
+       says the skill that predicts good AI-agent prompting is
+       the same skill that predicts good people management.
+       ============================================================ -->
+  <section class="screen quote-screen" id="screen-3">
+    <div class="layout">
+      <p class="eyebrow">A REAL EXAMPLE · BUSINESS INSIDER, SEP 2026</p>
+      <blockquote>"People who manage people and understand how to communicate what they want — inputs versus outputs — they're much better at running agents."</blockquote>
+      <p class="attribution">— Ivan Burazin, CEO &amp; cofounder, Daytona</p>
+
+      <div class="stat-row">
+        <span class="stat-pill"><b>16</b> engineers</span>
+        <span class="stat-pill">each running <b>~5</b> agents on average</span>
+        <span class="stat-pill"><b>0</b> people still writing code by hand</span>
+      </div>
+
+      <p class="support">Burazin says engineers who've never managed anyone tend to assume the agent will "just get it" — the same mistake first-time managers make with new hires. The fix in both cases is the same: say clearly what you want, how you want it done, and what "done" looks like.</p>
+      <p class="source">Source: <a href="https://www.businessinsider.com/ivan-burazin-daytona-ai-agents-prompting-managing-people-2026-9" target="_blank" rel="noopener noreferrer">Business Insider</a></p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SCREEN 4 — THE SHIFT
+       ============================================================ -->
+  <section class="screen" id="screen-4">
     <div class="layout">
       <h1>From Copilot → Agent</h1>
 
@@ -441,9 +600,9 @@
   </section>
 
   <!-- ============================================================
-       SCREEN 3 — DISCUSSION
+       SCREEN 5 — DISCUSSION
        ============================================================ -->
-  <section class="screen" id="screen-3">
+  <section class="screen" id="screen-5">
     <div class="layout">
       <p class="eyebrow">THE QUESTION</p>
       <h2 class="question">"If AI writes most of the code,<br>what does a good programmer<br>actually need to know?"</h2>
@@ -462,10 +621,10 @@
 
 </div>
 
-<!-- fixed progress readout, e.g. "01 / 03" -->
-<div id="progress"><b id="progress-current">01</b> / 03</div>
+<!-- fixed progress readout, e.g. "01 / 05" -->
+<div id="progress"><b id="progress-current">01</b> / 05</div>
 <div id="dots">
-  <span class="active"></span><span></span><span></span>
+  <span class="active"></span><span></span><span></span><span></span><span></span>
 </div>
 
 <script>
@@ -503,8 +662,8 @@ function goTo(index){
   progressCurrent.textContent = String(current + 1).padStart(2, '0');
   dots.forEach((d, i) => d.classList.toggle('active', i === current));
 
-  // fire per-screen "on enter" animations
-  if(current === 1) animateAgentCards();
+  // fire per-screen "on enter" animations (screen-4 "The Shift" is index 3)
+  if(current === 3) animateAgentCards();
 
   window.setTimeout(() => { isAnimating = false; }, 700);
 }
