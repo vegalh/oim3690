@@ -1,0 +1,29 @@
+/* external stylesheet */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f4ee;
+  color: #202a28;
+  margin: 0;
+  padding: 0 20px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 16px;
+  padding: 12px 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: #2d6a57;
+  font-weight: bold;
+}
+
+footer {
+  border-top: 1px solid #dfe4dc;
+  margin-top: 30px;
+  padding: 12px 0;
+  font-size: 14px;
+  color: #6b7772;
+}

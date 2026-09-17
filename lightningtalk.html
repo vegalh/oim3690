@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Are We Still Coding, or Are We Managing AI Coders?</title>
+
+<!-- Google Fonts: Space Grotesk for big editorial headlines, JetBrains Mono for code/labels -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     DESIGN TOKENS
+     Keeping colors/fonts/sizes as variables makes the whole page
+     easy to re-theme from one place.
+     ============================================================ */
+  :root{
+    --bg:#fafaf8;
+    --panel:#ffffff;
+    --ink:#111111;
+    --muted:#6b6b6b;
+    --line:#dcdcd6;
+    --accent:#111111;
+    --code-bg:#151515;
+    --code-line:#2a2a2a;
+    --font-display:'Space Grotesk',sans-serif;
+    --font-mono:'JetBrains Mono',monospace;
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-display);
+    overflow:hidden; /* screens are full-height panels, not a normal scrolling page */
+  }
+
+  /* ============================================================
+     SLIDE DECK STRUCTURE
+     Each <section class="screen"> is one full-viewport "slide".
+     They are stacked with transform:translateY and slid into view
+     with a CSS transition -- no external library needed.
+     ============================================================ */
+  #deck{
+    position:relative;
+    width:100%;
+    height:100vh;
+  }
+  .screen{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:clamp(28px,6vw,90px);
+    transform:translateY(100%);
+    opacity:0;
+    transition:transform .7s cubic-bezier(.22,.68,0,1), opacity .5s ease;
+    pointer-events:none;
+  }
+  .screen.active{
+    transform:translateY(0);
+    opacity:1;
+    pointer-events:auto;
+  }
+  /* screens above the active one wait stacked above the viewport */
+  .screen.prev{transform:translateY(-100%);opacity:0}
+
+  /* ============================================================
+     PROGRESS INDICATOR (fixed, bottom-left) — "01 / 03" style
+     ============================================================ */
+  #progress{
+    position:fixed;
+    left:clamp(20px,6vw,90px);
+    bottom:28px;
+    font-family:var(--font-mono);
+    font-size:13px;
+    letter-spacing:.08em;
+    color:var(--muted);
+    z-index:50;
+  }
+  #progress b{color:var(--ink)}
+
+  /* dot rail next to the counter, one dot per screen */
+  #dots{
+    position:fixed;
+    right:clamp(20px,6vw,90px);
+    bottom:28px;
+    display:flex;
+    gap:8px;
+    z-index:50;
+  }
+  #dots span{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--line);
+    transition:background .3s ease, transform .3s ease;
+  }
+  #dots span.active{background:var(--ink);transform:scale(1.3)}
+
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 18px;
+  }
+
+  /* ============================================================
+     SCREEN 1 — THE NEWS
+     ============================================================ */
+  #screen-1 .layout{
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:clamp(24px,5vw,70px);
+    align-items:center;
+    max-width:1200px;
+    margin:0 auto;
+    width:100%;
+  }
+  #screen-1 h1{
+    font-size:clamp(34px,5.2vw,72px);
+    line-height:1.03;
+    letter-spacing:-.02em;
+    margin:0 0 20px;
+  }
+  #screen-1 .lede{
+    font-size:clamp(16px,1.6vw,20px);
+    line-height:1.5;
+    margin:0 0 14px;
+    max-width:46ch;
+  }
+  #screen-1 .support{
+    font-size:clamp(14px,1.3vw,16px);
+    color:var(--muted);
+    line-height:1.6;
+    max-width:44ch;
+    margin:0 0 22px;
+  }
+  #screen-1 .source{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--muted);
+  }
+  #screen-1 .source a{color:var(--ink);text-decoration:underline}
+
+  /* fake code editor window */
+  .code-window{
+    background:var(--code-bg);
+    border-radius:14px;
+    border:1px solid #000;
+    overflow:hidden;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.35);
+    width:100%;
+    max-width:520px;
+    justify-self:end;
+  }
+  .code-window .titlebar{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 14px;
+    background:var(--code-line);
+    border-bottom:1px solid #000;
+  }
+  .code-window .dot{width:10px;height:10px;border-radius:50%}
+  .code-window .dot.r{background:#ff5f57}
+  .code-window .dot.y{background:#febc2e}
+  .code-window .dot.g{background:#28c840}
+  .code-window .filename{
+    margin-left:8px;
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:#9a9a9a;
+  }
+  .code-window pre{
+    margin:0;
+    padding:20px 22px;
+    font-family:var(--font-mono);
+    font-size:13px;
+    line-height:1.8;
+    color:#d4d4d4;
+    min-height:260px;
+  }
+  .code-window .cl{display:block;white-space:pre;opacity:0} /* revealed one line at a time by JS */
+  .code-window .cl.shown{opacity:1}
+  .code-window .caret{
+    display:inline-block;width:7px;height:15px;background:#e5e5e5;
+    vertical-align:-2px;animation:blink 1s step-end infinite;
+  }
+  @keyframes blink{50%{opacity:0}}
+
+  .tok-kw{color:#c586c0}
+  .tok-fn{color:#dcdcaa}
+  .tok-str{color:#ce9178}
+  .tok-cm{color:#6a9955}
+  .tok-var{color:#9cdcfe}
+
+  #screen-1 .scroll-hint{
+    position:absolute;
+    left:50%;transform:translateX(-50%);
+    bottom:70px;
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--muted);
+    letter-spacing:.05em;
+    animation:bob 2s ease-in-out infinite;
+  }
+  @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,6px)}}
+
+  /* ============================================================
+     SCREEN 2 — THE SHIFT
+     ============================================================ */
+  #screen-2 .layout{max-width:980px;margin:0 auto;width:100%}
+  #screen-2 h1{
+    font-size:clamp(32px,4.6vw,60px);
+    letter-spacing:-.02em;
+    margin:0 0 40px;
+    text-align:center;
+  }
+
+  .timeline{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0;
+    margin:0 auto 46px;
+  }
+  .timeline .step{
+    font-family:var(--font-mono);
+    font-size:13px;
+    letter-spacing:.05em;
+    color:var(--muted);
+    padding:8px 18px;
+    border:1px solid var(--line);
+    border-radius:30px;
+    background:var(--panel);
+  }
+  .timeline .arrow{
+    font-size:16px;
+    color:var(--line);
+    line-height:1;
+    padding:4px 0;
+  }
+  /* the final stage is the whole point of the slide, so it's visually loud */
+  .timeline .step.final{
+    color:#fff;
+    background:var(--ink);
+    border-color:var(--ink);
+    font-size:15px;
+    font-weight:700;
+    padding:12px 26px;
+    transform:scale(1.08);
+  }
+
+  .agents-flow{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    margin-bottom:30px;
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--muted);
+  }
+  .agents-flow .you{
+    font-weight:700;
+    color:var(--ink);
+    font-size:15px;
+  }
+
+  .agent-cards{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:14px;
+    margin-bottom:36px;
+  }
+  .agent-card{
+    font-family:var(--font-mono);
+    font-size:13px;
+    padding:14px 18px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:var(--panel);
+    opacity:0;
+    transform:translateY(14px);
+    transition:opacity .5s ease, transform .5s ease;
+  }
+  .agent-card.shown{opacity:1;transform:translateY(0)}
+
+  #screen-2 .takeaway{
+    text-align:center;
+    font-size:clamp(20px,2.6vw,30px);
+    line-height:1.35;
+    max-width:640px;
+    margin:0 auto;
+  }
+
+  /* ============================================================
+     SCREEN 3 — DISCUSSION
+     ============================================================ */
+  #screen-3 .layout{
+    max-width:820px;
+    margin:0 auto;
+    width:100%;
+    text-align:center;
+  }
+  #screen-3 h2.question{
+    font-size:clamp(26px,4.4vw,46px);
+    line-height:1.25;
+    letter-spacing:-.01em;
+    margin:0 0 44px;
+  }
+
+  .word-row{
+    display:flex;
+    justify-content:center;
+    gap:clamp(16px,4vw,40px);
+    margin-bottom:26px;
+    flex-wrap:wrap;
+  }
+  .word-btn{
+    font-family:var(--font-mono);
+    font-size:clamp(16px,2vw,22px);
+    letter-spacing:.06em;
+    background:none;
+    border:none;
+    border-bottom:2px solid var(--line);
+    color:var(--ink);
+    padding:6px 4px 10px;
+    cursor:pointer;
+    transition:border-color .25s ease, color .25s ease;
+  }
+  .word-btn:hover{color:var(--muted)}
+  .word-btn.active{border-color:var(--ink)}
+
+  .reveal-box{
+    min-height:70px;
+    font-size:clamp(15px,1.6vw,18px);
+    color:var(--muted);
+    max-width:540px;
+    margin:0 auto 30px;
+    line-height:1.5;
+  }
+  .reveal-box .label{
+    display:block;
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:.1em;
+    color:var(--ink);
+    margin-bottom:8px;
+  }
+
+  #screen-3 .prompt-line{
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--muted);
+    letter-spacing:.05em;
+  }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width:820px){
+    #screen-1 .layout{grid-template-columns:1fr}
+    .code-window{justify-self:stretch;max-width:100%}
+    .timeline .step.final{transform:scale(1)}
+  }
+</style>
+</head>
+<body>
+
+<div id="deck">
+
+  <!-- ============================================================
+       SCREEN 1 — THE NEWS
+       ============================================================ -->
+  <section class="screen active" id="screen-1">
+    <div class="layout">
+      <div>
+        <p class="eyebrow">AI CODING · SEPTEMBER 2026</p>
+        <h1>$200M for AI<br>That Codes</h1>
+        <p class="lede">AI coding startup Factory raised $200M at a $5B valuation.</p>
+        <p class="support">The interesting part isn't the valuation.<br>It's what investors think software development is becoming.</p>
+        <p class="source">Source: <a href="https://www.reuters.com/technology/" target="_blank" rel="noopener noreferrer">Reuters</a></p>
+      </div>
+
+      <!-- Fake code editor: JS reveals one line at a time to look "AI-written" -->
+      <div class="code-window">
+        <div class="titlebar">
+          <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+          <span class="filename">agent.ts</span>
+        </div>
+        <pre id="typing-code"></pre>
+      </div>
+    </div>
+    <div class="scroll-hint">↓ So what changed?</div>
+  </section>
+
+  <!-- ============================================================
+       SCREEN 2 — THE SHIFT
+       ============================================================ -->
+  <section class="screen" id="screen-2">
+    <div class="layout">
+      <h1>From Copilot → Agent</h1>
+
+      <div class="timeline">
+        <div class="step">YOU WRITE CODE</div>
+        <div class="arrow">↓</div>
+        <div class="step">AI HELPS YOU CODE</div>
+        <div class="arrow">↓</div>
+        <div class="step">AI WRITES CODE</div>
+        <div class="arrow">↓</div>
+        <div class="step final">YOU MANAGE AI CODERS</div>
+      </div>
+
+      <div class="agents-flow">
+        <div class="you">YOU</div>
+        <div>↓</div>
+        <div>5 AI AGENTS</div>
+      </div>
+
+      <!-- Cards fade/slide in one-by-one via JS when this screen becomes active -->
+      <div class="agent-cards" id="agent-cards">
+        <div class="agent-card">Frontend</div>
+        <div class="agent-card">Backend</div>
+        <div class="agent-card">Testing</div>
+        <div class="agent-card">Debugging</div>
+        <div class="agent-card">Documentation</div>
+      </div>
+
+      <p class="takeaway">"The developer may be shifting<br>from writer → manager."</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SCREEN 3 — DISCUSSION
+       ============================================================ -->
+  <section class="screen" id="screen-3">
+    <div class="layout">
+      <p class="eyebrow">THE QUESTION</p>
+      <h2 class="question">"If AI writes most of the code,<br>what does a good programmer<br>actually need to know?"</h2>
+
+      <div class="word-row">
+        <button class="word-btn" data-word="code">CODE</button>
+        <button class="word-btn" data-word="prompt">PROMPT</button>
+        <button class="word-btn" data-word="judgment">JUDGMENT</button>
+      </div>
+
+      <div class="reveal-box" id="reveal-box"></div>
+
+      <p class="prompt-line">What would you choose?</p>
+    </div>
+  </section>
+
+</div>
+
+<!-- fixed progress readout, e.g. "01 / 03" -->
+<div id="progress"><b id="progress-current">01</b> / 03</div>
+<div id="dots">
+  <span class="active"></span><span></span><span></span>
+</div>
+
+<script>
+/* ================================================================
+   SLIDE ENGINE
+   Very small state machine: `current` is the index of the visible
+   screen. goTo() swaps CSS classes to slide screens in/out and
+   updates the progress readout + dots.
+   ================================================================ */
+const screens = Array.from(document.querySelectorAll('.screen'));
+const total = screens.length;
+let current = 0;
+let isAnimating = false;
+
+const progressCurrent = document.getElementById('progress-current');
+const dots = Array.from(document.querySelectorAll('#dots span'));
+
+function goTo(index){
+  index = Math.max(0, Math.min(total - 1, index));
+  if(index === current || isAnimating) return;
+
+  isAnimating = true;
+  const goingForward = index > current;
+
+  screens.forEach((screen, i) => {
+    screen.classList.remove('active', 'prev');
+    if(i === index){
+      screen.classList.add('active');
+    } else if(i < index){
+      screen.classList.add('prev'); // parked above the viewport
+    }
+  });
+
+  current = index;
+  progressCurrent.textContent = String(current + 1).padStart(2, '0');
+  dots.forEach((d, i) => d.classList.toggle('active', i === current));
+
+  // fire per-screen "on enter" animations
+  if(current === 1) animateAgentCards();
+
+  window.setTimeout(() => { isAnimating = false; }, 700);
+}
+
+/* ---- keyboard: → / space forward, ← backward ---- */
+window.addEventListener('keydown', (e) => {
+  if(e.key === 'ArrowRight' || e.key === ' '){
+    e.preventDefault();
+    goTo(current + 1);
+  } else if(e.key === 'ArrowLeft'){
+    e.preventDefault();
+    goTo(current - 1);
+  }
+});
+
+/* ---- trackpad / mouse wheel: debounced so one swipe = one slide ---- */
+let wheelLocked = false;
+window.addEventListener('wheel', (e) => {
+  if(wheelLocked) return;
+  if(Math.abs(e.deltaY) < 12) return; // ignore tiny accidental scrolls
+  wheelLocked = true;
+  goTo(current + (e.deltaY > 0 ? 1 : -1));
+  window.setTimeout(() => { wheelLocked = false; }, 700);
+}, { passive:true });
+
+/* ================================================================
+   SCREEN 1 — typewriter effect for the fake "AI agent" code window
+   ================================================================ */
+const codeLines = [
+  '<span class="tok-cm">// agent: implement-feature</span>',
+  '<span class="tok-kw">async function</span> <span class="tok-fn">buildFeature</span>(spec) {',
+  '&nbsp;&nbsp;<span class="tok-kw">const</span> <span class="tok-var">plan</span> = <span class="tok-kw">await</span> <span class="tok-fn">planTasks</span>(spec);',
+  '&nbsp;&nbsp;<span class="tok-kw">for</span> (<span class="tok-kw">const</span> <span class="tok-var">task</span> <span class="tok-kw">of</span> <span class="tok-var">plan</span>) {',
+  '&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-kw">await</span> <span class="tok-fn">writeCode</span>(<span class="tok-var">task</span>);',
+  '&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-kw">await</span> <span class="tok-fn">runTests</span>(<span class="tok-var">task</span>);',
+  '&nbsp;&nbsp;}',
+  '&nbsp;&nbsp;<span class="tok-kw">return</span> <span class="tok-str">"done"</span>;',
+  '}'
+];
+
+function typeCode(){
+  const target = document.getElementById('typing-code');
+  target.innerHTML = '';
+  codeLines.forEach((html) => {
+    const line = document.createElement('span');
+    line.className = 'cl';
+    line.innerHTML = html;
+    target.appendChild(line);
+  });
+
+  let i = 0;
+  function revealNext(){
+    if(i >= codeLines.length) return;
+    target.children[i].classList.add('shown');
+    i++;
+    window.setTimeout(revealNext, 380);
+  }
+  revealNext();
+}
+
+/* ================================================================
+   SCREEN 2 — reveal the five agent cards one at a time
+   ================================================================ */
+let agentsAnimated = false;
+function animateAgentCards(){
+  if(agentsAnimated) return;
+  agentsAnimated = true;
+  const cards = Array.from(document.querySelectorAll('.agent-card'));
+  cards.forEach((card, i) => {
+    window.setTimeout(() => card.classList.add('shown'), i * 220);
+  });
+}
+
+/* ================================================================
+   SCREEN 3 — click CODE / PROMPT / JUDGMENT to reveal its meaning
+   ================================================================ */
+const wordMeanings = {
+  code: 'Understand what the system is actually doing.',
+  prompt: 'Tell AI clearly what needs to be built.',
+  judgment: "Know whether the AI's answer is actually good."
+};
+
+const wordButtons = Array.from(document.querySelectorAll('.word-btn'));
+const revealBox = document.getElementById('reveal-box');
+
+wordButtons.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    wordButtons.forEach((b) => b.classList.remove('active'));
+    btn.classList.add('active');
+    const word = btn.dataset.word;
+    revealBox.innerHTML =
+      '<span class="label">' + word.toUpperCase() + '</span>' + wordMeanings[word];
+  });
+});
+
+/* kick off the code typewriter once everything is loaded */
+window.addEventListener('DOMContentLoaded', typeCode);
+</script>
+
+</body>
+</html>
