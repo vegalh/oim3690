@@ -1,3 +1,5 @@
+
+
 # Project Proposal: Lesson Finder & Designer
 
 ## Background
@@ -45,3 +47,7 @@ No frameworks or backend needed — everything can run as a static page, which a
 2. Seed the library with a handful of real lessons she already uses, tagged accordingly.
 3. Build the Finder UI first (filter + list), then add the Designer form once the data shape is proven out.
 4. Get her to test it during actual lesson prep and adjust the tags/filters based on what's missing or confusing.
+
+## Site Plan
+
+The teacher I interviewed lands here, usually mid-prep with a specific set of constraints in mind — 15 minutes, indoors, rainy day, dinosaur-obsessed kids — rather than a blank slate. The one thing she does on this site is filter the Lesson Library down to a short list of matching activities and open the one that fits today. The site has three sections: **Home** (the filter form plus results list, since that's the task she does every day), **About** (why this exists — the prep-time problem and the goal of consistent, high-quality lessons), and **Projects** (the Lesson Designer form for building and saving new tagged lessons, shown as a growing project of the library itself). Content is just the tagged lesson data (duration, environment, weather, interest tags, materials, steps) stored as a JS array/`localStorage`, with no accounts or backend. Two sites I looked at for comparison were Teachers Pay Teachers and PBS LearningMedia, because both let a teacher narrow a large pile of resources down fast using the same kind of facets I want (grade/subject on those sites, time/environment/weather/interest on mine) — that filter-first pattern is exactly what makes "just show me what fits today" possible instead of scrolling everything.
