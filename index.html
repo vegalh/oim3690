@@ -99,9 +99,11 @@
     padding-bottom:0;
   }
   .sky .stars{opacity:.4}
-  .moon{position:absolute;top:60px;right:80px;width:70px;height:70px;border-radius:50%;
+  .moon{position:absolute;top:clamp(30px,6vw,60px);right:clamp(20px,8vw,80px);
+    width:clamp(40px,8vw,70px);height:clamp(40px,8vw,70px);border-radius:50%;
     background:radial-gradient(circle at 35% 30%,#fdf6e3,var(--gold) 80%);
     box-shadow:0 0 40px #c9a76888;
+    z-index:1;
   }
 
   .castle-title{
@@ -115,7 +117,7 @@
   .castle{
     position:relative;
     display:flex;align-items:flex-end;justify-content:center;
-    margin:50px auto 0;
+    margin:100px auto 0;
     width:min(760px,92vw);
   }
   .tower{position:relative;width:90px;background:linear-gradient(180deg,#4d3f66,#372c4d);border:1px solid #5b4a78}
