@@ -3,6 +3,7 @@
 
   const form = document.getElementById('todo-form');
   const input = document.getElementById('todo-input');
+  const dueInput = document.getElementById('todo-due');
   const list = document.getElementById('todo-list');
   const itemsLeft = document.getElementById('items-left');
   const clearCompletedBtn = document.getElementById('clear-completed');
@@ -37,9 +38,10 @@
     });
 
     list.innerHTML = filtered.map(function (todo) {
+      const dueLabel = todo.due ? '<span class="todo-due">Due ' + todo.due + '</span>' : '';
       return '<li class="' + (todo.completed ? 'completed' : '') + '" data-id="' + todo.id + '">' +
         '<input type="checkbox" class="toggle-btn" ' + (todo.completed ? 'checked' : '') + '>' +
-        '<span class="todo-text">' + escapeHtml(todo.text) + '</span>' +
+        '<span class="todo-text">' + escapeHtml(todo.text) + dueLabel + '</span>' +
         '<button type="button" class="delete-btn" aria-label="Delete task">✕</button>' +
         '</li>';
     }).join('');
@@ -52,7 +54,7 @@
     e.preventDefault();
     const text = input.value.trim();
     if (!text) return;
-    todos.push({ id: Date.now(), text: text, completed: false });
+    todos.push({ id: Date.now(), text: text, completed: false, due: dueInput.value });
     saveTodos();
     render();
     form.reset();

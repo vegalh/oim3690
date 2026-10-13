@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temperature Converter</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 60px 20px;
+      background: #f4f4f9;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #2b2b2b;
+    }
+
+    .converter {
+      width: 100%;
+      max-width: 360px;
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 24px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      margin: 0 0 16px;
+      font-size: 1.4rem;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    input[type="number"]:focus {
+      outline: none;
+      border-color: #6c63ff;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      background: #6c63ff;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    #result {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="converter">
+    <h1>Temperature Converter</h1>
+
+    <div class="field">
+      <label for="celsius-input">Celsius</label>
+      <input type="number" id="celsius-input" placeholder="Enter Celsius">
+    </div>
+
+    <div class="field">
+      <label for="fahrenheit-input">Fahrenheit</label>
+      <input type="number" id="fahrenheit-input" placeholder="Enter Fahrenheit">
+    </div>
+
+    <button type="button" id="convert-btn">Convert Celsius &rarr; Fahrenheit</button>
+
+    <p id="result"></p>
+  </main>
+
+  <script>
+    const celsiusInput = document.getElementById('celsius-input');
+    const fahrenheitInput = document.getElementById('fahrenheit-input');
+    const convertBtn = document.getElementById('convert-btn');
+    const result = document.getElementById('result');
+
+    function toFahrenheit(celsius) {
+      return celsius * 9 / 5 + 32;
+    }
+
+    function toCelsius(fahrenheit) {
+      return (fahrenheit - 32) * 5 / 9;
+    }
+
+    convertBtn.addEventListener('click', function () {
+      const celsius = Number(celsiusInput.value);
+      const fahrenheit = toFahrenheit(celsius);
+      fahrenheitInput.value = fahrenheit;
+      result.textContent = celsius + '\u00b0C is ' + fahrenheit + '\u00b0F';
+    });
+
+    // typing in either box live-updates the other
+    celsiusInput.addEventListener('input', function () {
+      if (celsiusInput.value === '') {
+        fahrenheitInput.value = '';
+        return;
+      }
+      const celsius = Number(celsiusInput.value);
+      fahrenheitInput.value = toFahrenheit(celsius);
+    });
+
+    fahrenheitInput.addEventListener('input', function () {
+      if (fahrenheitInput.value === '') {
+        celsiusInput.value = '';
+        return;
+      }
+      const fahrenheit = Number(fahrenheitInput.value);
+      celsiusInput.value = toCelsius(fahrenheit);
+    });
+  </script>
+</body>
+</html>
