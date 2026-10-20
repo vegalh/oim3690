@@ -1,0 +1,720 @@
+/* ============================================================
+   LIGHTNING TALK 2 — "When Everyone Can Build an App…"
+   Scoped entirely under .page-lightningtalk2 so it never
+   touches any other page's styles in this repo.
+   ============================================================ */
+
+.page-lightningtalk2{
+  --bg:#fcfbf7;
+  --bg-soft:#ffffff;
+  --ink:#1d2320;
+  --ink-soft:#454b43;
+  --ink-faint:#767d72;
+  --green:#1f4d36;
+  --green-deep:#133626;
+  --green-light:#3f8a5f;
+  --green-tint:#e6efe6;
+  --line:rgba(29,35,32,.10);
+  --shadow-soft:0 20px 60px -30px rgba(19,54,38,.35);
+  --shadow-card:0 14px 34px -20px rgba(29,35,32,.22);
+  --font-display:'Space Grotesk', sans-serif;
+  --font-body:'Inter', sans-serif;
+  --font-mono:'JetBrains Mono', monospace;
+}
+
+.page-lightningtalk2, .page-lightningtalk2 *{ box-sizing:border-box; }
+
+html:has(.page-lightningtalk2), .page-lightningtalk2{ height:100%; }
+
+.page-lightningtalk2{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+.page-lightningtalk2 a{ color:inherit; }
+
+/* ============================================================
+   DECK STRUCTURE — 3 stacked full-viewport screens
+   ============================================================ */
+.page-lightningtalk2 #deck{
+  position:relative;
+  width:100vw;
+  height:100vh;
+  overflow:hidden;
+}
+
+.page-lightningtalk2 .screen{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:clamp(28px, 4vw, 72px) clamp(32px, 6vw, 96px);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:translateY(16px);
+  transition:opacity .55s ease, transform .55s ease, visibility 0s linear .55s;
+}
+
+.page-lightningtalk2 .screen.active{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform:translateY(0);
+  transition:opacity .55s ease, transform .55s ease, visibility 0s linear 0s;
+}
+
+.page-lightningtalk2 .screen-inner{
+  width:100%;
+  max-width:1280px;
+  margin:0 auto;
+}
+
+.page-lightningtalk2 .eyebrow{
+  font-family:var(--font-mono);
+  font-size:clamp(1.05rem, 1.5vw, 1.35rem);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--green);
+  margin:0 0 .9em;
+  font-weight:500;
+}
+
+.page-lightningtalk2 h1{
+  font-family:var(--font-display);
+  font-weight:700;
+  line-height:1.03;
+  letter-spacing:-.01em;
+  margin:0 0 .3em;
+  color:var(--ink);
+}
+
+/* ============================================================
+   SCREEN 1 — THE HOOK
+   ============================================================ */
+.page-lightningtalk2 #screen-1 .screen-inner{ text-align:center; }
+
+.page-lightningtalk2 #screen-1 h1{
+  font-size:clamp(2.7rem, 6.2vw, 5.2rem);
+}
+
+.page-lightningtalk2 .hook-sub{
+  font-family:var(--font-display);
+  font-weight:500;
+  font-size:clamp(1.7rem, 3.6vw, 3.05rem);
+  color:var(--green-deep);
+  margin:0 0 clamp(2rem, 4vw, 3.2rem);
+  opacity:0;
+}
+
+.page-lightningtalk2 .screen.active .hook-sub{
+  animation:fadeSlideUp .7s ease .25s both;
+}
+
+.page-lightningtalk2 .workflows{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:clamp(1.2rem, 3vw, 3rem);
+  margin:0 auto clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.page-lightningtalk2 .workflow{
+  background:var(--bg-soft);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:clamp(1.1rem, 1.8vw, 1.6rem) clamp(1.3rem, 2.2vw, 2rem);
+  box-shadow:var(--shadow-card);
+  min-width:min(92vw, 420px);
+}
+
+.page-lightningtalk2 .workflow-label{
+  font-family:var(--font-mono);
+  font-size:1.05rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  margin:0 0 .8em;
+  text-align:left;
+}
+
+.page-lightningtalk2 .workflow.before .workflow-label{ color:var(--ink-faint); }
+.page-lightningtalk2 .workflow.now .workflow-label{ color:var(--green); font-weight:600; }
+
+.page-lightningtalk2 .workflow-row{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:.4rem .5rem;
+  justify-content:flex-start;
+}
+
+.page-lightningtalk2 .step{
+  font-family:var(--font-display);
+  font-size:clamp(1.1rem, 1.8vw, 1.55rem);
+  font-weight:600;
+  padding:.55em 1.1em;
+  border-radius:999px;
+  background:var(--bg);
+  border:1px solid var(--line);
+  color:var(--ink-soft);
+  white-space:nowrap;
+  opacity:0;
+  transform:translateY(10px);
+}
+
+.page-lightningtalk2 .workflow.now .step{
+  background:var(--green);
+  color:#fdfcf9;
+  border-color:var(--green);
+}
+
+.page-lightningtalk2 .arrow{
+  color:var(--ink-faint);
+  font-size:1.45rem;
+  opacity:0;
+}
+
+.page-lightningtalk2 .screen.active .workflow .step,
+.page-lightningtalk2 .screen.active .workflow .arrow{
+  animation:fadeSlideUp .5s ease both;
+}
+.page-lightningtalk2 .screen.active .workflow.before .step:nth-child(1),
+.page-lightningtalk2 .screen.active .workflow.before .arrow:nth-child(2){ animation-delay:.45s; }
+.page-lightningtalk2 .screen.active .workflow.before .arrow:nth-child(2){ animation-delay:.6s; }
+.page-lightningtalk2 .screen.active .workflow.before .step:nth-child(3){ animation-delay:.75s; }
+.page-lightningtalk2 .screen.active .workflow.before .arrow:nth-child(4){ animation-delay:.9s; }
+.page-lightningtalk2 .screen.active .workflow.before .step:nth-child(5){ animation-delay:1.05s; }
+.page-lightningtalk2 .screen.active .workflow.before .arrow:nth-child(6){ animation-delay:1.2s; }
+.page-lightningtalk2 .screen.active .workflow.before .step:nth-child(7){ animation-delay:1.35s; }
+
+.page-lightningtalk2 .screen.active .workflow.now .step:nth-child(1){ animation-delay:.5s; }
+.page-lightningtalk2 .screen.active .workflow.now .arrow:nth-child(2){ animation-delay:.68s; }
+.page-lightningtalk2 .screen.active .workflow.now .step:nth-child(3){ animation-delay:.86s; }
+.page-lightningtalk2 .screen.active .workflow.now .arrow:nth-child(4){ animation-delay:1.04s; }
+.page-lightningtalk2 .screen.active .workflow.now .step:nth-child(5){ animation-delay:1.22s; }
+
+.page-lightningtalk2 .hook-statement{
+  font-family:var(--font-mono);
+  font-size:clamp(1.15rem, 1.7vw, 1.5rem);
+  color:var(--ink-soft);
+  opacity:0;
+}
+
+.page-lightningtalk2 .screen.active .hook-statement{
+  animation:fadeSlideUp .6s ease 1.5s both;
+}
+
+/* ============================================================
+   SCREEN 2 — ROOTMAP DEMO
+   ============================================================ */
+.page-lightningtalk2 #screen-2{
+  /* Screen 2 is dominated by the phone, which needs to be sized by
+     available height (a real phone is tall relative to its width) — so
+     this screen gets slightly tighter vertical padding than screens 1/3
+     to leave the phone as much room as possible. */
+  padding-top:clamp(20px, 3vh, 44px);
+  padding-bottom:clamp(20px, 3vh, 44px);
+}
+
+.page-lightningtalk2 #screen-2 .screen-inner{
+  display:grid;
+  grid-template-columns:minmax(260px, 420px) auto;
+  gap:clamp(1.6rem, 4vw, 4rem);
+  align-items:center;
+  max-width:1200px;
+  margin-top:clamp(.5rem, 2vh, 1.25rem);
+}
+
+.page-lightningtalk2 .demo-copy{ text-align:left; }
+
+.page-lightningtalk2 #screen-2 h1{
+  font-size:clamp(2.6rem, 5.1vw, 4.5rem);
+}
+
+.page-lightningtalk2 .demo-sub{
+  font-family:var(--font-body);
+  font-size:clamp(1.3rem, 2vw, 1.75rem);
+  color:var(--ink-soft);
+  margin:0 0 1.6em;
+  max-width:36ch;
+}
+
+.page-lightningtalk2 .open-app-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:.5em;
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:clamp(1.15rem, 1.6vw, 1.5rem);
+  color:#fdfcf9;
+  background:var(--green);
+  border:none;
+  border-radius:999px;
+  padding:.85em 1.7em;
+  cursor:pointer;
+  box-shadow:var(--shadow-soft);
+  transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+  text-decoration:none;
+  margin-bottom:1.8em;
+}
+.page-lightningtalk2 .open-app-btn:hover{
+  background:var(--green-deep);
+  transform:translateY(-2px);
+}
+
+.page-lightningtalk2 .demo-labels{
+  display:flex;
+  flex-direction:column;
+  gap:1.1em;
+}
+
+.page-lightningtalk2 .demo-label{
+  border-left:3px solid var(--green);
+  padding-left:.9em;
+}
+
+.page-lightningtalk2 .demo-label .label-title{
+  font-family:var(--font-mono);
+  font-size:1.05rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--green-deep);
+  font-weight:600;
+  margin:0 0 .3em;
+}
+
+.page-lightningtalk2 .demo-label .label-desc{
+  font-size:1.26rem;
+  color:var(--ink-soft);
+  margin:0;
+  max-width:38ch;
+}
+
+.page-lightningtalk2 .phone-wrap{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:1rem;
+  justify-self:center;
+}
+
+.page-lightningtalk2 .phone-frame{
+  position:relative;
+  /* Sized by HEIGHT (a share of viewport height), with width left to
+     shrink-wrap around the content. This is what actually guarantees the
+     phone fits the available vertical space at any screen size — sizing
+     by width instead (as before) could make the frame taller than the
+     viewport at large widths, since a real phone is quite tall relative
+     to its width. Width is intentionally NOT set via aspect-ratio on this
+     element: subtracting the fixed 12px bezel padding from a ratio'd
+     border-box only matches the 390x844 content at one exact size and
+     drifts (a visible gap between the bezel and the screen) at every
+     other size. Instead .phone-screen below carries the real 390:844
+     ratio on its own content box, so the bezel always hugs it exactly. */
+  width:fit-content;
+  height:clamp(460px, 90vh, 960px);
+  background:#0d0f0e;
+  border-radius:clamp(26px, 3vw, 42px);
+  padding:12px;
+  box-shadow:var(--shadow-soft), 0 0 0 2px rgba(255,255,255,.04) inset;
+}
+
+.page-lightningtalk2 .phone-notch{
+  position:absolute;
+  top:12px;
+  left:50%;
+  transform:translateX(-50%);
+  width:38%;
+  height:clamp(16px, 1.6vw, 22px);
+  background:#0d0f0e;
+  border-radius:0 0 14px 14px;
+  z-index:2;
+}
+
+/* The phone-screen is the visible, rounded "glass" area. Its height
+   always fills the frame's content box, and its width is derived from
+   the exact 390:844 device ratio (not the frame's own box), so it
+   always matches the scaled RootMap viewport pixel-for-pixel with no
+   gap around the edges, at any frame size. Its content (phone-viewport)
+   is always rendered at a fixed, real-device width (390x844 — RootMap's
+   own CSS assumes a min-width of 320px) and then scaled down with a CSS
+   transform to exactly fill the screen. */
+.page-lightningtalk2 .phone-screen{
+  position:relative;
+  height:100%;
+  aspect-ratio:390/844;
+  border-radius:clamp(18px, 2.4vw, 30px);
+  overflow:hidden;
+  background:#fff;
+}
+
+.page-lightningtalk2 .phone-viewport{
+  position:absolute;
+  top:0;
+  left:0;
+  width:390px;
+  height:844px;
+  transform-origin:top left;
+}
+
+.page-lightningtalk2 .phone-viewport iframe{
+  width:390px;
+  height:844px;
+  border:0;
+  display:block;
+}
+
+.page-lightningtalk2 .embed-fallback{
+  position:absolute;
+  inset:0;
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:.9em;
+  text-align:center;
+  padding:1.4em;
+  background:var(--bg-soft);
+}
+
+.page-lightningtalk2 .embed-fallback.show{ display:flex; }
+
+.page-lightningtalk2 .embed-fallback p{
+  font-size:1rem;
+  color:var(--ink-soft);
+  margin:0;
+}
+
+.page-lightningtalk2 .embed-fallback a{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:1rem;
+  color:var(--green);
+  text-decoration:underline;
+}
+
+/* ============================================================
+   SCREEN 3 — INDUSTRY SHIFT + DISCUSSION
+   ============================================================ */
+.page-lightningtalk2 #screen-3 h1{
+  font-size:clamp(2.4rem, 4.8vw, 4.1rem);
+  text-align:center;
+  max-width:16ch;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.page-lightningtalk2 .shift-cards{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:clamp(1rem, 2vw, 1.6rem);
+  margin:clamp(1.4rem, 3vw, 2.2rem) 0;
+}
+
+.page-lightningtalk2 .shift-card{
+  background:var(--bg-soft);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:clamp(1rem, 1.6vw, 1.5rem);
+  box-shadow:var(--shadow-card);
+  opacity:0;
+  transform:translateY(16px);
+}
+
+.page-lightningtalk2 .screen.active .shift-card{
+  animation:fadeSlideUp .6s ease both;
+}
+.page-lightningtalk2 .screen.active .shift-card:nth-child(1){ animation-delay:.15s; }
+.page-lightningtalk2 .screen.active .shift-card:nth-child(2){ animation-delay:.32s; }
+.page-lightningtalk2 .screen.active .shift-card:nth-child(3){ animation-delay:.49s; }
+
+.page-lightningtalk2 .shift-card .num{
+  font-family:var(--font-mono);
+  font-size:1.05rem;
+  color:var(--green);
+  font-weight:600;
+  margin:0 0 .6em;
+}
+
+.page-lightningtalk2 .shift-card h3{
+  font-family:var(--font-display);
+  font-size:clamp(1.35rem, 1.9vw, 1.7rem);
+  margin:0 0 .4em;
+  color:var(--ink);
+}
+
+.page-lightningtalk2 .shift-card p{
+  font-size:1.18rem;
+  color:var(--ink-soft);
+  margin:0;
+}
+
+.page-lightningtalk2 .discussion-q{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:clamp(1.7rem, 3.6vw, 3rem);
+  text-align:center;
+  color:var(--green-deep);
+  max-width:20ch;
+  margin:clamp(1rem, 2vw, 1.6rem) auto 0;
+}
+
+.page-lightningtalk2 .reveal-btn{
+  display:block;
+  margin:clamp(1.2rem, 2vw, 1.8rem) auto 0;
+  font-family:var(--font-mono);
+  font-size:1.05rem;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  color:var(--green-deep);
+  background:transparent;
+  border:1px solid var(--green);
+  border-radius:999px;
+  padding:.7em 1.4em;
+  cursor:pointer;
+  transition:background .2s ease, color .2s ease;
+}
+.page-lightningtalk2 .reveal-btn:hover{
+  background:var(--green);
+  color:#fdfcf9;
+}
+
+/* Second discussion-question overlay */
+.page-lightningtalk2 .q-overlay{
+  position:fixed;
+  inset:0;
+  z-index:50;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:clamp(2rem, 6vw, 5rem);
+  background:linear-gradient(160deg, var(--green-deep), var(--green) 70%);
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .4s ease, visibility 0s linear .4s;
+}
+.page-lightningtalk2 .q-overlay.open{
+  opacity:1;
+  visibility:visible;
+  transition:opacity .4s ease, visibility 0s linear 0s;
+}
+
+.page-lightningtalk2 .q-overlay h2{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:clamp(2.5rem, 6.4vw, 5.1rem);
+  color:#fdfcf9;
+  text-align:center;
+  max-width:18ch;
+  margin:0;
+  line-height:1.1;
+}
+
+.page-lightningtalk2 .q-overlay .q-close{
+  position:absolute;
+  top:clamp(1.2rem, 2vw, 2rem);
+  right:clamp(1.2rem, 2vw, 2rem);
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.4);
+  color:#fdfcf9;
+  width:2.4em;
+  height:2.4em;
+  border-radius:50%;
+  font-size:1rem;
+  cursor:pointer;
+}
+
+/* ============================================================
+   PROGRESS DOTS
+   ============================================================ */
+.page-lightningtalk2 .progress-dots{
+  position:fixed;
+  left:50%;
+  bottom:clamp(1.1rem, 2.4vh, 2rem);
+  transform:translateX(-50%);
+  display:flex;
+  gap:.6rem;
+  z-index:40;
+}
+
+.page-lightningtalk2 .dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--line);
+  border:none;
+  cursor:pointer;
+  padding:0;
+  transition:background .25s ease, transform .25s ease;
+}
+.page-lightningtalk2 .dot.active{
+  background:var(--green);
+  transform:scale(1.3);
+}
+
+/* ============================================================
+   TOP-RIGHT CONTROLS (fullscreen) + hint
+   ============================================================ */
+.page-lightningtalk2 .top-controls{
+  position:fixed;
+  top:clamp(1rem, 2vh, 1.6rem);
+  right:clamp(1rem, 2vw, 1.6rem);
+  z-index:40;
+  display:flex;
+  gap:.6rem;
+}
+
+.page-lightningtalk2 .icon-btn{
+  font-family:var(--font-mono);
+  font-size:.88rem;
+  background:var(--bg-soft);
+  border:1px solid var(--line);
+  color:var(--ink-soft);
+  border-radius:999px;
+  padding:.55em 1.1em;
+  cursor:pointer;
+  box-shadow:var(--shadow-card);
+}
+.page-lightningtalk2 .icon-btn:hover{ color:var(--green-deep); border-color:var(--green); }
+
+/* ============================================================
+   PRESENTER NOTES PANEL (toggle: N)
+   ============================================================ */
+.page-lightningtalk2 .notes-panel{
+  position:fixed;
+  left:clamp(1rem, 2vw, 1.6rem);
+  top:clamp(1rem, 2vh, 1.6rem);
+  max-width:min(92vw, 420px);
+  background:rgba(19,54,38,.96);
+  color:#eef4ef;
+  border-radius:16px;
+  padding:1rem 1.2rem;
+  font-family:var(--font-mono);
+  font-size:.95rem;
+  line-height:1.5;
+  z-index:60;
+  display:none;
+  box-shadow:var(--shadow-soft);
+}
+.page-lightningtalk2 .notes-panel.visible{ display:block; }
+
+.page-lightningtalk2 .notes-panel .notes-title{
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  font-size:.78rem;
+  color:#9fd6b4;
+  margin:0 0 .6em;
+}
+
+.page-lightningtalk2 .notes-panel .notes-body{ display:none; }
+.page-lightningtalk2 .notes-panel .notes-body.current{ display:block; }
+.page-lightningtalk2 .notes-panel .notes-body p{ margin:0 0 .6em; }
+.page-lightningtalk2 .notes-panel .notes-body p:last-child{ margin-bottom:0; }
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes fadeSlideUp{
+  from{ opacity:0; transform:translateY(14px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+/* ============================================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================================ */
+@media (max-width: 900px){
+  .page-lightningtalk2 #screen-2 .screen-inner{
+    grid-template-columns:1fr;
+    justify-items:center;
+    text-align:center;
+  }
+  .page-lightningtalk2 .demo-copy{ text-align:center; order:2; }
+  .page-lightningtalk2 .phone-wrap{ order:1; }
+  .page-lightningtalk2 .demo-labels{ align-items:center; }
+  .page-lightningtalk2 .demo-label{ border-left:none; border-top:3px solid var(--green); padding-left:0; padding-top:.5em; }
+  .page-lightningtalk2 .shift-cards{ grid-template-columns:1fr; }
+}
+
+/* Compact vertical rhythm for short/projector displays (e.g. 1366x768)
+   so the larger type introduced above never clips or overlaps the
+   progress dots. Does not affect tall displays like 1920x1080. */
+@media (max-height: 820px){
+  .page-lightningtalk2 .screen{
+    padding-top:clamp(16px, 2.6vh, 40px);
+    padding-bottom:clamp(16px, 2.6vh, 40px);
+  }
+
+  .page-lightningtalk2 .eyebrow{ margin-bottom:.5em; }
+
+  .page-lightningtalk2 #screen-1 h1{ font-size:clamp(2.2rem, 5vw, 3.6rem); }
+  .page-lightningtalk2 .hook-sub{
+    font-size:clamp(1.3rem, 2.6vw, 2rem);
+    margin-bottom:clamp(.9rem, 2.2vh, 1.4rem);
+  }
+  .page-lightningtalk2 .workflows{
+    gap:clamp(.7rem, 1.8vh, 1.2rem);
+    margin-bottom:clamp(.8rem, 1.8vh, 1.2rem);
+  }
+  .page-lightningtalk2 .workflow{ padding:clamp(.6rem, 1.3vh, .9rem) clamp(1rem, 1.8vw, 1.5rem); }
+  .page-lightningtalk2 .workflow-label{ margin-bottom:.4em; }
+  .page-lightningtalk2 .step{ font-size:clamp(.95rem, 1.5vw, 1.25rem); padding:.45em .9em; }
+  .page-lightningtalk2 .hook-statement{ font-size:clamp(.95rem, 1.3vw, 1.15rem); }
+
+  .page-lightningtalk2 .phone-frame{ height:clamp(430px, 86vh, 760px); }
+  .page-lightningtalk2 #screen-2 .screen-inner{ margin-top:0; }
+  .page-lightningtalk2 #screen-2 h1{ font-size:clamp(2rem, 4vw, 3rem); }
+  .page-lightningtalk2 .demo-sub{ font-size:clamp(1.05rem, 1.6vw, 1.3rem); margin-bottom:.9em; }
+  .page-lightningtalk2 .open-app-btn{ font-size:clamp(1rem, 1.3vw, 1.2rem); margin-bottom:1em; }
+  .page-lightningtalk2 .demo-labels{ gap:.7em; }
+
+  .page-lightningtalk2 #screen-3 h1{ font-size:clamp(1.8rem, 3.6vw, 2.8rem); }
+  .page-lightningtalk2 .shift-cards{
+    margin:clamp(.9rem, 2vh, 1.4rem) 0;
+    gap:clamp(.8rem, 1.6vw, 1.2rem);
+  }
+  .page-lightningtalk2 .shift-card{ padding:clamp(.8rem, 1.2vw, 1.1rem); }
+  .page-lightningtalk2 .shift-card h3{ font-size:clamp(1.1rem, 1.5vw, 1.3rem); }
+  .page-lightningtalk2 .shift-card p{ font-size:1rem; }
+  .page-lightningtalk2 .discussion-q{
+    font-size:clamp(1.3rem, 2.6vw, 1.9rem);
+    margin-top:clamp(.8rem, 1.6vw, 1.2rem);
+  }
+  .page-lightningtalk2 .reveal-btn{ margin-top:clamp(.9rem, 1.6vw, 1.3rem); }
+}
+
+@media (max-height: 600px){
+  .page-lightningtalk2 .phone-frame{ height:clamp(340px, 74vh, 560px); }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce){
+  .page-lightningtalk2 *{
+    animation-duration:.001ms !important;
+    animation-delay:0s !important;
+    transition-duration:.001ms !important;
+  }
+  .page-lightningtalk2 .screen{ transform:none; }
+  .page-lightningtalk2 .hook-sub,
+  .page-lightningtalk2 .hook-statement,
+  .page-lightningtalk2 .step,
+  .page-lightningtalk2 .arrow,
+  .page-lightningtalk2 .shift-card{
+    opacity:1 !important;
+    transform:none !important;
+  }
+}
+
+/* Focus visibility for keyboard users */
+.page-lightningtalk2 button:focus-visible,
+.page-lightningtalk2 a:focus-visible{
+  outline:2px solid var(--green);
+  outline-offset:3px;
+}

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>When Everyone Can Build an App… — OIM 3690 Lightning Talk</title>
+<meta name="description" content="How vibe coding is reshaping the app economy — a live interactive lightning talk featuring RootMap.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/lightningtalk2.css">
+</head>
+<body class="page-lightningtalk2">
+
+<div id="deck">
+
+  <!-- ============================================================
+       SCREEN 1 — THE HOOK
+       ============================================================ -->
+  <section class="screen active" id="screen-1" aria-label="Screen 1 of 3: The hook">
+    <div class="screen-inner">
+      <p class="eyebrow">OIM 3690 · Lightning Talk</p>
+      <h1>WHEN EVERYONE CAN<br>BUILD AN APP…</h1>
+      <p class="hook-sub">What Happens to the App Economy?</p>
+
+      <div class="workflows">
+        <div class="workflow before">
+          <p class="workflow-label">Before</p>
+          <div class="workflow-row">
+            <span class="step">Idea</span>
+            <span class="arrow">→</span>
+            <span class="step">Learn to Code</span>
+            <span class="arrow">→</span>
+            <span class="step">Build</span>
+            <span class="arrow">→</span>
+            <span class="step">Launch</span>
+          </div>
+        </div>
+        <div class="workflow now">
+          <p class="workflow-label">Now</p>
+          <div class="workflow-row">
+            <span class="step">Idea</span>
+            <span class="arrow">→</span>
+            <span class="step">AI-Assisted Building</span>
+            <span class="arrow">→</span>
+            <span class="step">Launch</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="hook-statement">The barrier to building software is getting lower.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SCREEN 2 — ROOTMAP: A REAL EXAMPLE
+       ============================================================ -->
+  <section class="screen" id="screen-2" aria-label="Screen 2 of 3: RootMap live demo">
+    <div class="screen-inner">
+      <div class="demo-copy">
+        <p class="eyebrow">Live Demo</p>
+        <h1>I Built This with AI.</h1>
+        <p class="demo-sub">RootMap — An early childhood education app built by a business student.</p>
+        <a class="open-app-btn" href="https://vegalh.github.io/rootmapmvp/#/today" target="_blank" rel="noopener noreferrer">
+          Open Full App ↗
+        </a>
+
+        <div class="demo-labels">
+          <div class="demo-label">
+            <p class="label-title">Business Student</p>
+            <p class="label-desc">No traditional software engineering background.</p>
+          </div>
+          <div class="demo-label">
+            <p class="label-title">AI-Assisted Development</p>
+            <p class="label-desc">Building with AI coding tools.</p>
+          </div>
+          <div class="demo-label">
+            <p class="label-title">Real Product</p>
+            <p class="label-desc">Designed to help parents support children's development.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="phone-wrap">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="phone-viewport" id="phone-viewport">
+              <iframe id="rootmap-iframe"
+                      src="https://vegalh.github.io/rootmapmvp/#/today"
+                      title="RootMap live application"
+                      loading="eager"
+                      referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div class="embed-fallback" id="embed-fallback">
+              <p>Having trouble loading the live demo here?</p>
+              <a href="https://vegalh.github.io/rootmapmvp/#/today" target="_blank" rel="noopener noreferrer">Launch RootMap in a new tab ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SCREEN 3 — THE INDUSTRY SHIFT + DISCUSSION
+       ============================================================ -->
+  <section class="screen" id="screen-3" aria-label="Screen 3 of 3: Industry shift and discussion">
+    <div class="screen-inner">
+      <h1>The App Store Isn't Dying.<br>The Ecosystem Is Changing.</h1>
+
+      <div class="shift-cards">
+        <div class="shift-card">
+          <p class="num">01</p>
+          <h3>Consumers → Creators</h3>
+          <p>More people can turn their ideas into working software.</p>
+        </div>
+        <div class="shift-card">
+          <p class="num">02</p>
+          <h3>Mass-Market → Personalized</h3>
+          <p>Software can serve increasingly specific needs and smaller audiences.</p>
+        </div>
+        <div class="shift-card">
+          <p class="num">03</p>
+          <h3>Coding → Product Thinking</h3>
+          <p>Understanding problems, users, design, and trust becomes more important.</p>
+        </div>
+      </div>
+
+      <p class="discussion-q">"If everyone can build an app, what makes one successful?"</p>
+
+      <button class="reveal-btn" id="reveal-q2-btn" type="button">Reveal the next question</button>
+    </div>
+  </section>
+
+</div>
+
+<!-- Second discussion question — dominates the screen when revealed -->
+<div class="q-overlay" id="q-overlay" aria-hidden="true" role="dialog" aria-label="Second discussion question">
+  <button class="q-close" id="q-close-btn" type="button" aria-label="Close discussion question">✕</button>
+  <h2>"Will vibe coding create more entrepreneurs,<br>or just more apps?"</h2>
+</div>
+
+<!-- Progress indicators -->
+<div class="progress-dots" role="tablist" aria-label="Slide progress">
+  <button class="dot active" type="button" aria-label="Go to screen 1"></button>
+  <button class="dot" type="button" aria-label="Go to screen 2"></button>
+  <button class="dot" type="button" aria-label="Go to screen 3"></button>
+</div>
+
+<!-- Top-right controls -->
+<div class="top-controls">
+  <button class="icon-btn" id="fullscreen-btn" type="button">Fullscreen</button>
+</div>
+
+
+<!-- Presenter notes panel (toggle: N) -->
+<div class="notes-panel" id="notes-panel" aria-live="polite">
+  <p class="notes-title">Presenter Notes</p>
+  <div class="notes-body" data-screen="1">
+    <p>A few years ago, building an app required learning programming or hiring developers. Today, AI is changing that.</p>
+  </div>
+  <div class="notes-body" data-screen="2">
+    <p>This is RootMap, an early childhood education app I'm building. I'm a business student, but AI coding tools have made it possible for me to develop a functioning product.</p>
+  </div>
+  <div class="notes-body" data-screen="3">
+    <p>Vibe coding won't kill the App Store. It will change who creates software, how personalized software becomes, and what skills make a product valuable.</p>
+    <p>Now imagine anyone can build an app. What makes one worth using?</p>
+  </div>
+</div>
+
+<script src="js/lightningtalk2.js" defer></script>
+</body>
+</html>
