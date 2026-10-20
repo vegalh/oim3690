@@ -202,13 +202,101 @@ html, .page-index{margin:0;height:100%}
 .page-index #montessori-door .label{font:10px 'DM Mono';letter-spacing:.08em;text-transform:uppercase;color:var(--gold);text-align:center;padding:0 6px}
 .page-index .castle-hint{
     text-align:center;color:var(--muted);font:12px 'DM Mono';letter-spacing:.05em;
-    padding:26px 20px 60px;position:relative;z-index:2;
+    padding:26px 20px 6px;position:relative;z-index:2;
   }
 .page-index .footer-link{
-    text-align:center;padding-bottom:40px;position:relative;z-index:2;
+    text-align:center;position:relative;z-index:2;
   }
 .page-index .footer-link a{color:var(--gold);font:12px 'DM Mono';text-decoration:none;letter-spacing:.05em}
 .page-index .footer-link a:hover{text-decoration:underline}
+/* ========== HERO ACTIONS: quick links + scroll cue ========== */
+.page-index .hero-actions{
+    position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;
+    gap:28px;padding:18px 20px 64px;
+  }
+.page-index .quick-links{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 22px}
+.page-index .quick-links a{
+    color:var(--ink);font:12px 'DM Mono';letter-spacing:.08em;text-transform:uppercase;
+    text-decoration:none;padding-bottom:3px;border-bottom:1px solid transparent;
+    transition:color .2s ease, border-color .2s ease;
+  }
+.page-index .quick-links a:hover{color:var(--gold);border-color:var(--gold)}
+.page-index .scroll-cue{
+    display:flex;flex-direction:column;align-items:center;gap:6px;
+    color:var(--muted);text-decoration:none;font:11px 'DM Mono';letter-spacing:.15em;text-transform:uppercase;
+    transition:color .2s ease;
+  }
+.page-index .scroll-cue:hover{color:var(--gold)}
+.page-index .scroll-cue-arrow{font-size:18px;animation:bounce-page-index 2s ease-in-out infinite}
+@keyframes bounce-page-index{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+@media (prefers-reduced-motion:reduce){
+  .page-index .scroll-cue-arrow{animation:none}
+}
+/* ========== WORK SECTIONS: projects / talks / logs ========== */
+.page-index .section-work{
+    position:relative;max-width:1040px;margin:0 auto;padding:80px 24px;
+  }
+.page-index .section-work.alt{background:#140f20}
+.page-index .section-head{text-align:center;max-width:62ch;margin:0 auto 44px}
+.page-index .section-head .eyebrow{font:11px 'DM Mono';letter-spacing:.25em;text-transform:uppercase;color:var(--gold)}
+.page-index .section-head h2{font-family:'Cinzel',serif;font-size:clamp(24px,3.6vw,34px);color:#fff;margin:10px 0 10px}
+.page-index .section-head p{color:var(--muted);font-size:16px;margin:0}
+.page-index .card-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;
+  }
+.page-index .work-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:26px 24px;display:flex;flex-direction:column;gap:10px;
+    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+.page-index .work-card:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 12px 30px #00000055}
+.page-index .work-card .tag{font:10px 'DM Mono';letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:0}
+.page-index .work-card h3{font-family:'Cinzel',serif;font-size:19px;color:#fff;margin:0;line-height:1.3}
+.page-index .work-card p{color:var(--muted);font-size:15px;line-height:1.5;margin:0;flex-grow:1}
+.page-index .card-links{display:flex;flex-wrap:wrap;gap:16px;margin-top:6px}
+.page-index .card-links a{color:var(--gold);font:12px 'DM Mono';letter-spacing:.04em;text-decoration:none;border-bottom:1px solid transparent}
+.page-index .card-links a:hover{border-color:var(--gold)}
+/* -- more coursework (collapsed by default) -- */
+.page-index .more-coursework{margin-top:36px;border-top:1px solid var(--line);padding-top:22px}
+.page-index .more-coursework summary{
+    cursor:pointer;color:var(--muted);font:12px 'DM Mono';letter-spacing:.1em;text-transform:uppercase;
+    list-style:none;display:inline-flex;align-items:center;gap:8px;
+  }
+.page-index .more-coursework summary::-webkit-details-marker{display:none}
+.page-index .more-coursework summary::before{content:'+';color:var(--gold);font-size:14px}
+.page-index .more-coursework[open] summary::before{content:'–'}
+.page-index .more-coursework summary:hover{color:var(--gold)}
+.page-index .mini-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:20px;
+  }
+.page-index .mini-link{
+    display:flex;flex-direction:column;gap:3px;text-decoration:none;
+    background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+.page-index .mini-link:hover{border-color:var(--gold);transform:translateY(-2px)}
+.page-index .mini-link span{color:var(--ink);font-size:15px;font-weight:600}
+.page-index .mini-link small{color:var(--muted);font-size:12px}
+/* -- weekly logs -- */
+.page-index .logs-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.page-index .log-row{
+    display:grid;grid-template-columns:90px 1fr auto;align-items:center;gap:18px;
+    padding:18px 20px;border-bottom:1px solid var(--line);
+    transition:background .2s ease;
+  }
+.page-index .log-row:hover{background:var(--panel)}
+.page-index .log-week{font:12px 'DM Mono';letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+.page-index .log-desc{color:var(--muted);font-size:15px;line-height:1.5}
+.page-index .log-row a{color:var(--ink);font:12px 'DM Mono';text-decoration:none;white-space:nowrap;border-bottom:1px solid var(--line)}
+.page-index .log-row a:hover{color:var(--gold);border-color:var(--gold)}
+@media (max-width:640px){
+  .page-index .log-row{grid-template-columns:1fr;gap:6px;text-align:left}
+  .page-index .log-row a{justify-self:start}
+}
+/* -- site footer -- */
+.page-index .site-footer{
+    border-top:1px solid var(--line);padding:36px 20px 50px;background:var(--paper);
+  }
 /* ========== MONTESSORI ROOM ========== */
 .page-index #montessori-room{
     display:none;min-height:100vh;

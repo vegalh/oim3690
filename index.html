@@ -50,8 +50,161 @@
     </div>
 
     <p class="castle-hint">↳ open the door to step into my education space</p>
-    <div class="footer-link"><a href="https://github.com/vegalh/vegalh.github.io.git">github.com/vegalh</a> &nbsp;·&nbsp; <a href="assignment.html">plain-HTML version</a></div>
+
+    <div class="hero-actions">
+      <nav class="quick-links" aria-label="Page sections">
+        <a href="#projects">Projects</a>
+        <a href="#talks">Lightning Talks</a>
+        <a href="#logs">Weekly Logs</a>
+      </nav>
+      <a class="scroll-cue" href="#projects" aria-label="Scroll down to see my work">
+        <span>See my work</span>
+        <span class="scroll-cue-arrow">↓</span>
+      </a>
+    </div>
   </div>
+
+  <!-- ===== Featured Projects ===== -->
+  <section class="section-work" id="projects">
+    <div class="section-head">
+      <p class="eyebrow">Featured Projects</p>
+      <h2>Things I've Built</h2>
+      <p>A mix of real products and coursework apps — all plain HTML, CSS, and vanilla JavaScript unless noted.</p>
+    </div>
+
+    <div class="card-grid">
+      <article class="work-card">
+        <p class="tag">Live App · AI-Assisted</p>
+        <h3>RootMap</h3>
+        <p>An early childhood education app I designed and built with AI-assisted coding tools, now live for parents to use with their kids.</p>
+        <div class="card-links">
+          <a href="https://vegalh.github.io/rootmapmvp/#/today" target="_blank" rel="noopener">Open App ↗</a>
+          <a href="https://github.com/vegalh/rootmapmvp" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </article>
+
+      <article class="work-card">
+        <p class="tag">Live App · Mini Project 1</p>
+        <h3>Peninsula Montessori Lesson Finder</h3>
+        <p>A lesson-finder and filter tool for the teachers in my kindergarten classroom, matching activities to today's time, space, and the kids' interests.</p>
+        <div class="card-links">
+          <a href="https://vegalh.github.io/peninsula-montessori-lessons-site/" target="_blank" rel="noopener">Open App ↗</a>
+          <a href="https://github.com/vegalh/peninsula-montessori-lessons-site" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </article>
+
+      <article class="work-card">
+        <p class="tag">HTML · CSS · JS · localStorage</p>
+        <h3>Housing Points Tracker</h3>
+        <p>A resident dashboard for my community that logs meetings, retreats, and absences, and calculates housing points automatically.</p>
+        <div class="card-links">
+          <a href="try.html">Open Tracker →</a>
+        </div>
+      </article>
+
+      <article class="work-card">
+        <p class="tag">HTML · CSS · JS · localStorage</p>
+        <h3>To-Do List</h3>
+        <p>A task manager with Active/Completed filters, due dates, and a running count of what's left — saved locally in the browser.</p>
+        <div class="card-links">
+          <a href="todo.html">Open To-Do List →</a>
+        </div>
+      </article>
+    </div>
+
+    <details class="more-coursework">
+      <summary>More coursework pages</summary>
+      <div class="mini-grid">
+        <a class="mini-link" href="converter.html"><span>Temperature Converter</span><small>Celsius ⇄ Fahrenheit, one file</small></a>
+        <a class="mini-link" href="contact.html"><span>Contact Form</span><small>Validated name, email, message</small></a>
+        <a class="mini-link" href="cv.html"><span>CV</span><small>My résumé as a web page</small></a>
+        <a class="mini-link" href="application.html"><span>Application Workspace</span><small>Notes for my grad school applications</small></a>
+        <a class="mini-link" href="about-me.html"><span>About Me</span><small>An earlier version of this castle intro</small></a>
+        <a class="mini-link" href="hello.html"><span>Hello, World</span><small>My very first hand-written HTML page</small></a>
+      </div>
+    </details>
+  </section>
+
+  <!-- ===== Lightning Talks ===== -->
+  <section class="section-work alt" id="talks">
+    <div class="section-head">
+      <p class="eyebrow">OIM 3690</p>
+      <h2>Lightning Talks</h2>
+      <p>Short, full-screen slide decks built with plain CSS transitions instead of a slideshow library.</p>
+    </div>
+
+    <div class="card-grid talks-grid">
+      <article class="work-card">
+        <p class="tag">Latest · Live Demo</p>
+        <h3>How Vibe Coding Is Reshaping the App Economy</h3>
+        <p>How AI-assisted coding is changing who gets to build software — with a live demo of RootMap.</p>
+        <div class="card-links">
+          <a href="lightningtalk2.html">Watch the Deck →</a>
+        </div>
+      </article>
+
+      <article class="work-card">
+        <p class="tag">Lightning Talk</p>
+        <h3>Are We Still Coding, or Are We Managing AI Coders?</h3>
+        <p>On AI coding tools, and what's left for the humans driving them.</p>
+        <div class="card-links">
+          <a href="lightningtalk.html">Watch the Deck →</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Weekly Logs ===== -->
+  <section class="section-work" id="logs">
+    <div class="section-head">
+      <p class="eyebrow">OIM 3690</p>
+      <h2>Weekly Logs</h2>
+      <p>What I built and what gave me trouble, week by week — rendered straight from the markdown files in this repo.</p>
+    </div>
+
+    <ol class="logs-list">
+      <li class="log-row">
+        <span class="log-week">Week 01</span>
+        <span class="log-desc">Getting comfortable with GitHub Desktop while starting a housing-points calculator for eTower.</span>
+        <a href="https://github.com/vegalh/oim3690/blob/main/logs/wk01.md" target="_blank" rel="noopener">Read →</a>
+      </li>
+      <li class="log-row">
+        <span class="log-week">Week 02</span>
+        <span class="log-desc">Built the housing points tracker and the first version of this site, with a CSS-only castle and orbiting-star loader.</span>
+        <a href="https://github.com/vegalh/oim3690/blob/main/logs/wk02.md" target="_blank" rel="noopener">Read →</a>
+      </li>
+      <li class="log-row">
+        <span class="log-week">Week 03</span>
+        <span class="log-desc">Shipped my first lightning talk deck, kept building out About Me and Application pages, and learned when to say no to extra frameworks.</span>
+        <a href="https://github.com/vegalh/oim3690/blob/main/logs/wk03.md" target="_blank" rel="noopener">Read →</a>
+      </li>
+      <li class="log-row">
+        <span class="log-week">Week 04</span>
+        <span class="log-desc">Cleaned house: merged an old branch, pulled every page's styles into one shared css/styles.css, and scoped each page with its own class.</span>
+        <a href="https://github.com/vegalh/oim3690/blob/main/logs/wk04.md" target="_blank" rel="noopener">Read →</a>
+      </li>
+      <li class="log-row">
+        <span class="log-week">Week 05</span>
+        <span class="log-desc">Built a to-do list app with localStorage, and started actually asking what unfamiliar JavaScript lines do instead of skipping past them.</span>
+        <a href="https://github.com/vegalh/oim3690/blob/main/logs/wk05.md" target="_blank" rel="noopener">Read →</a>
+      </li>
+      <li class="log-row">
+        <span class="log-week">Week 06</span>
+        <span class="log-desc">Rebuilt the contact form, added due dates to the to-do app, built a temperature converter, and drafted my MP2 wish list.</span>
+        <a href="https://github.com/vegalh/oim3690/blob/main/logs/wk06.md" target="_blank" rel="noopener">Read →</a>
+      </li>
+    </ol>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-link">
+      <a href="https://github.com/vegalh/oim3690">github.com/vegalh/oim3690</a>
+      &nbsp;·&nbsp;
+      <a href="contact.html">Contact</a>
+      &nbsp;·&nbsp;
+      <a href="#castle-page">Back to top ↑</a>
+    </div>
+  </footer>
 </div>
 
 <!-- ===== sub-page: the Montessori room inside the castle ===== -->
