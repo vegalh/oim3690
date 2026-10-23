@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Playlist</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 60px 20px;
+      background: #f4f4f9;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #2b2b2b;
+    }
+
+    .playlist-app {
+      width: 100%;
+      max-width: 420px;
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 24px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      margin: 0 0 16px;
+      font-size: 1.4rem;
+      text-align: center;
+    }
+
+    #playlist {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    #playlist li {
+      padding: 10px 12px;
+      border: 1px solid #e0e0e8;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    #playlist li.remix {
+      border-color: #6c63ff;
+      background: #f1f0ff;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <main class="playlist-app">
+    <h1>Playlist</h1>
+    <ul id="playlist"></ul>
+  </main>
+
+  <script src="js/playlist.js"></script>
+</body>
+</html>
