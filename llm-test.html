@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>LLM API Test</title>
+</head>
+<body>
+  <h1>LLM API Test</h1>
+  <p>Tests the <code>/api/ask</code> function. Only works on the deployed Vercel link (not Live Server, not GitHub Pages).</p>
+  <input id="prompt" type="text" value="Write a one-sentence bedtime story about a unicorn." size="60">
+  <button id="askBtn">Ask</button>
+  <p id="answer"></p>
+
+  <script>
+    async function askAI(prompt) {
+      const response = await fetch('/api/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt })
+      });
+      if (!response.ok) {
+        throw new Error(`Request failed: ${response.status}`);
+      }
+      const data = await response.json();
+      const message = data.output.find(item => item.type === 'message');
+      return message.content[0].text;
+    }
+
+    document.getElementById('askBtn').addEventListener('click', async () => {
+      const answerEl = document.getElementById('answer');
+      answerEl.textContent = 'Asking...';
+      try {
+        answerEl.textContent = await askAI(document.getElementById('prompt').value);
+      } catch (err) {
+        answerEl.textContent = `Error: ${err.message}`;
+      }
+    });
+  </script>
+</body>
+</html>
