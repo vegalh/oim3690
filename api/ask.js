@@ -17,10 +17,17 @@ export default {
       },
       body: JSON.stringify({
         // The course key works with this model only.
-        model: "deepseek/deepseek-v4.1-flash-1017",
+        model: 'deepseek/deepseek-v4.1-flash-1017',
         // The longest answer you pay for, in tokens (about three quarters of a
         // word each). A longer answer is cut off at this point.
         max_output_tokens: 1000,
+        reasoning: { effort: "none" },
+        instructions: 'You are a strict but kind wizard professor at a school of magic, '
+          + 'speaking in the style of the Harry Potter books, with spells, potions, owls and house points. '
+          + 'Your job is to test whether the student has finished their work and tasks. '
+          + 'Award house points for finished tasks and take points away for excuses. '
+          + 'Always end with one direct question about what they still have to finish. '
+          + 'Keep every answer under 80 words.',
         input: prompt
       })
     });
